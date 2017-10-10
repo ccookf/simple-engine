@@ -48,7 +48,8 @@
                 "C:/Program Files (x86)/Microsoft Visual Studio 14.0/VC/include/*",
                 "C:/Program Files (x86)/Windows Kits/8.1/Include/um",
                 "${workspaceRoot}",
-                "${workspaceRoot}/include"
+                "${workspaceRoot}/include",
+                "C:/SFML-2.4.2/include"
             ],
             "defines": [
                 "_DEBUG",
@@ -62,7 +63,7 @@
                     "${workspaceRoot}",
                     "${workspaceRoot}/include",
                     "C:/MinGW/include",
-                    "C:/MinGW/include/SFML"
+                    "C:/SFML-2.4.2/include"
                 ],
                 "limitSymbolsToIncludedHeaders": true,
                 "databaseFilename": ""

@@ -48,21 +48,16 @@ int main()
 
 	//Setup the light buffer for multiplicative lighting
 	if (sf::Shader::isAvailable())
-	{
 		std::cout << "Shaders are available!\n";
-	}
 	sf::RenderTexture lightBuffer;
 	lightBuffer.create(800,600);
 	sf::Shader lightShader;
-	// lightShader.loadFromFile("assets/blur.frag", sf::Shader::Fragment);
-	// lightShader.setUniform("texture", sf::Shader::CurrentTexture);
-	// lightShader.setUniform("blur_radius", 5.f);
-	// if (!lightShader.loadFromFile("assets/multiply-light.frag", sf::Shader::Fragment))
-	// {
-	// 	std::cout << "Shit.\n";
-	// }
+	lightShader.loadFromFile("assets/multiply-light.frag", sf::Shader::Fragment);
 	lightShader.setUniform("lightmap", lightBuffer.getTexture());
 	lightShader.setUniform("strength", 1.0f);
+
+	sf::Sprite lighting;
+	lighting.setTexture(lightBuffer.getTexture());
 
 	while (window.isOpen())
 	{
@@ -106,6 +101,8 @@ int main()
 						gameObjects[i]->Draw(lightBuffer);
 					else gameObjects[i]->Draw(window);
 				}
+
+		window.draw(lighting, &lightShader);
 		
 		//Update the fps counter
 		fps.Update(deltaTime);
