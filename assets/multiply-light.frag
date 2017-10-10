@@ -1,11 +1,12 @@
 uniform sampler2D texture;
 uniform sampler2D lightmap;
-uniform float strength;
 
 void main()
 {
-	vec4 lightcol = texture2D(lightmap, gl_TexCoord[0].xy);
-	vec4 texcol = texture2D(texture, gl_TexCoord[0].xy);
+	vec2 coord = gl_TexCoord[0].xy;
+	coord.y = 1.0 - coord.y;
+	vec4 lightcol = texture2D(lightmap, coord);
+	vec4 texcol = texture2D(texture, coord);
 
-	gl_FragColor = texcol * lightcol * strength;
+	gl_FragColor = texcol * lightcol;
 }

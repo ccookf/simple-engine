@@ -46,18 +46,20 @@ int main()
 	sf::Clock clock;
 	FpsCounter fps;
 
-	//Setup the light buffer for multiplicative lighting
-	if (sf::Shader::isAvailable())
-		std::cout << "Shaders are available!\n";
+	//Setup the backbuffer and light buffer
+	sf::RenderTexture backBuffer;
+	backBuffer.create(800, 600);
+	sf::Sprite backBufferSprite;
+	backBufferSprite.setTexture(backBuffer.getTexture());
+
 	sf::RenderTexture lightBuffer;
-	lightBuffer.create(800,600);
+	lightBuffer.create(800, 600);
+
+	//Setup the lighting shader
 	sf::Shader lightShader;
 	lightShader.loadFromFile("assets/multiply-light.frag", sf::Shader::Fragment);
 	lightShader.setUniform("lightmap", lightBuffer.getTexture());
-	lightShader.setUniform("strength", 1.0f);
-
-	sf::Sprite lighting;
-	lighting.setTexture(lightBuffer.getTexture());
+	lightShader.setUniform("texture", sf::Shader::CurrentTexture);
 
 	while (window.isOpen())
 	{
@@ -71,9 +73,6 @@ int main()
 					window.close();
 			}
 		}
-
-		//Begin game loop
-		window.clear(sf::Color::Black);
 
 		//Update all GameObjects
 		float deltaTime = clock.restart().asSeconds();
@@ -91,7 +90,10 @@ int main()
 			}
 		}
 
+		//Clear the render textures for drawing
 		lightBuffer.clear(sf::Color::Black);
+		backBuffer.clear(sf::Color::Black);
+
 		//Drawing all objects, ordered by layer
 		for (int j = 0; j < spriteLayers.size(); j++)
 			for (int i = 0; i < gameObjects.size(); i++)
@@ -99,10 +101,10 @@ int main()
 				{
 					if (gameObjects[i]->layer == SpriteLayer::Lights)
 						gameObjects[i]->Draw(lightBuffer);
-					else gameObjects[i]->Draw(window);
+					else gameObjects[i]->Draw(backBuffer);
 				}
 
-		window.draw(lighting, &lightShader);
+		window.draw(backBufferSprite, &lightShader);
 		
 		//Update the fps counter
 		fps.Update(deltaTime);

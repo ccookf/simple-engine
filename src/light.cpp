@@ -8,10 +8,10 @@ Light::Light()
 	//Register the light
 	lights.push_back(this);
 
-	sprite.setTexture(*TextureManager::getTexture("assets/light.png"));
-	parentPositionOffset = sf::Vector2f(-64,-64);
+	sprite.setTexture(*TextureManager::getTexture("assets/light-big.png"));
+	parentPositionOffset = sf::Vector2f(-192,-192);
 	layer = SpriteLayer::Lights;
-	color = sf::Color(255,255,255,255);
+	color = sf::Color(255,128,128,255);
 }
 
 Light::~Light()
