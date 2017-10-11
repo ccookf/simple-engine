@@ -33,9 +33,21 @@ int main()
 	window.setFramerateLimit(144);
 
 	//player & Light
-	Dude* dude = new Dude;
-	Light* light = new Light;
-	light->setParent(dude);
+	sf::Color lights[] = {
+		sf::Color(255, 0, 0, 255),
+		sf::Color(255, 255, 0, 255),
+		sf::Color(0, 255, 255, 255),
+		sf::Color(255, 0, 255, 255),
+		sf::Color(0, 0, 255, 255)
+	};
+	for (int i = 0; i < 5; i++)
+	{
+		Dude* dude = new Dude;
+		dude->position = sf::Vector2f(100*i, 100*i);
+		Light* light = new Light;
+		light->setParent(dude);
+		light->color = lights[i];
+	}
 
 	//background
 	BackgroundPic* pic = new BackgroundPic;
