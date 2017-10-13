@@ -3,6 +3,8 @@
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
+#include <map>
+#include <vector>
 
 #include "gameobject.h"
 
@@ -14,7 +16,6 @@ public:
 	sf::FloatRect box;
 	float width {0};
 	float height {0};
-	int mask {0};
 	int collisionMask {0};
 	sf::Vector2f position {0, 0};
 	sf::Vector2f origin {0, 0};
@@ -25,17 +26,25 @@ public:
 
 	GameObject* parent { nullptr };
 
-	CollisionBox();
-	~CollisionBox();
-
 	void Update();
 	void Draw(sf::RenderTarget &target);
 	void setDimensions(float width, float height);
 	void setOrigin(float x, float y);
 	void setOffset(float x, float y);
 	void checkCollision(CollisionBox* other);
+};
 
-	static std::vector<CollisionBox*> boxes;
+class CollisionBoxManager
+{
+public:
+	std::map<int, std::vector<CollisionBox*>> map;
+
+	CollisionBoxManager();
+	static CollisionBoxManager* instance();
+	void add(int collisionLayer, CollisionBox* box);
+
+private:
+	static CollisionBoxManager* _instance;
 };
 
 #endif

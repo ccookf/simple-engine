@@ -14,13 +14,14 @@
 #include <time.h>
 #include <vector>
 
+#include "background-pic.h"
+#include "collision-box.h"
+#include "collision-layers.h"
+#include "dude.h"
 #include "fps-counter.h"
 #include "gameobject.h"
-#include "collision-box.h"
-#include "texture-manager.h"
-#include "dude.h"
-#include "background-pic.h"
 #include "light.h"
+#include "texture-manager.h"
 
 int main()
 {
@@ -55,9 +56,10 @@ int main()
 
 	//Engine maintenance
 	SpriteLayerManager* spriteLayerManager = SpriteLayerManager::instance();
+	CollisionBoxManager* collisionBoxManager = CollisionBoxManager::instance();
 	std::map<SpriteLayer, std::vector<GameObject*>> &spriteLayers = spriteLayerManager->map;
+	std::map<int, std::vector<CollisionBox*>> &collisionLayers = collisionBoxManager->map;
 	std::vector<GameObject*> &gameObjects = GameObject::gameObjects;
-	std::vector<CollisionBox*> &collisionBoxes = CollisionBox::boxes;
 	sf::Clock clock;
 	FpsCounter fps;
 
@@ -95,13 +97,26 @@ int main()
 			gameObjects[i]->Update(deltaTime);
 
 		//Check for collisions
-		for (int i = 0; i < collisionBoxes.size(); i++)
+		for (auto layer : RegisteredCollisionLayers)
 		{
-			for (int j = 0; j < collisionBoxes.size(); j++)
+			//For every box in every layer
+			for (auto box : collisionLayers[layer])
 			{
-				if (i == j) continue;
-				else if (collisionBoxes[i]->collisionMask & collisionBoxes[j]->mask)
-					collisionBoxes[i]->checkCollision(collisionBoxes[j]);
+				//Skip boxes without parents or inactive gameobjects
+				if (box->parent == nullptr || !box->parent->active) continue;
+
+				//Check the box against other boxes
+				for (auto otherLayer : RegisteredCollisionLayers)
+				{
+					//Check if the box can interact with the other layer
+					if (box->collisionMask & otherLayer)
+					{
+						for (auto otherBox : collisionLayers[otherLayer])
+						{
+							box->checkCollision(otherBox);
+						}
+					}
+				}
 			}
 		}
 

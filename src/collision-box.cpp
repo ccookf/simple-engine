@@ -3,20 +3,14 @@
 #include <iostream>
 
 #include "collision-box.h"
+#include "collision-layers.h"
 
-std::vector<CollisionBox*> CollisionBox::boxes;
+//Static members
+CollisionBoxManager* CollisionBoxManager::_instance;
 
-CollisionBox::CollisionBox()
-{
-	boxes.push_back(this);
-}
-
-CollisionBox::~CollisionBox()
-{
-	for (int i = 0; i < boxes.size(); i++)
-		if (boxes[i] == this) boxes.erase(boxes.begin()+i);
-}
-
+/********************************************************
+ * CollisionBox
+ *******************************************************/
 void CollisionBox::checkCollision(CollisionBox* other)
 {	
 	if (!box.intersects(other->box)) return;
@@ -45,6 +39,7 @@ void CollisionBox::setOffset(float x, float y)
 void CollisionBox::Update()
 {
 	sf::Vector2f newOffset = parentPositionOffset - origin;
+	
 	newOffset.x *= parent->scale.x;
 	newOffset.y *= parent->scale.y;
 
@@ -60,9 +55,31 @@ void CollisionBox::Update()
 void CollisionBox::Draw(sf::RenderTarget &target)
 {
 	if (!isVisible) return;
-	return;
 	sf::RectangleShape shape(sf::Vector2f(box.width, box.height));
 	shape.setPosition(position);
 	shape.setFillColor(color);
 	target.draw(shape);
+}
+
+/******************************************************
+ * Collsion Box Manager
+ *****************************************************/
+
+CollisionBoxManager::CollisionBoxManager()
+{
+	for (auto layer : RegisteredCollisionLayers)
+	{
+		map.insert(std::make_pair(layer, std::vector<CollisionBox*>()));
+	}
+}
+
+CollisionBoxManager* CollisionBoxManager::instance()
+{
+	if (_instance == nullptr) _instance = new CollisionBoxManager();
+	return _instance;
+}
+
+void CollisionBoxManager::add(int collisionLayer, CollisionBox* box)
+{
+	map[collisionLayer].push_back(box);
 }

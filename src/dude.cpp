@@ -36,20 +36,21 @@ Dude::Dude()
 	walking.parent = this;
 	walking.loop = true;
 
+	CollisionBoxManager* cbm = CollisionBoxManager::instance();
+	cbm->add(CL_Physics, &hitbox);
 	hitbox.parent = this;
 	hitbox.setDimensions(64, 64);
 	hitbox.setOrigin(32, 32);
 	hitbox.isVisible = true;
 	hitbox.collisionMask = CL_Physics;
-	hitbox.mask = CL_Physics;
 
+	cbm->add(CL_Physics, &sight);
 	sight.parent = this;
 	sight.setDimensions(250, 20);
 	sight.setOrigin(32, 32);
 	sight.setOffset(32, 18);
 	sight.isVisible = true;
 	sight.color = sf::Color(255,255,0,128);
-	sight.mask = CL_Physics;
 }
 
 void Dude::Update(float deltaTime)
