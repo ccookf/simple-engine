@@ -1,8 +1,5 @@
 #include "game.h"
 
-#include <SFML/Window.hpp>
-#include <SFML/Graphics.hpp>
-
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
@@ -19,11 +16,11 @@
 
 Game* Game::_instance;
 
-Game::Game() {}
+Game::Game(sf::RenderWindow& window) : window(window) {}
 Game::~Game() {}
-Game* Game::instance()
+Game* Game::instance(sf::RenderWindow& window)
 {
-	if (_instance == nullptr) _instance = new Game();
+	if (_instance == nullptr) _instance = new Game(window);
 	return _instance;
 }
 
@@ -35,8 +32,7 @@ void Game::run()
 	std::cout << "Launching debug build...\n";
 	#endif
 	
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Sprite Testing", sf::Style::Close);
-	//window.setFramerateLimit(144);
+	resetWindow();
 
 	//player & Light
 	sf::Color lightColors[] = {
@@ -65,13 +61,6 @@ void Game::run()
 	sf::Clock clock;
 	FpsCounter fps;
 
-	//Setup the backbuffer and light buffer
-	sf::RenderTexture lightBuffer;
-	lightBuffer.create(800, 600);
-	sf::Sprite lightBufferSprite;
-	lightBufferSprite.setTexture(lightBuffer.getTexture());
-	lightBufferSprite.setTextureRect(sf::IntRect(0,600,800,-600));
-
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -82,6 +71,21 @@ void Game::run()
 			{
 				if (event.key.code == sf::Keyboard::Escape)
 					window.close();
+
+				if (event.key.code == sf::Keyboard::F1)
+				{
+					settings.resolution.x = 1280;
+					settings.resolution.y = 720;
+					settings.fullscreen = true;
+					resetWindow();
+				}
+				if (event.key.code == sf::Keyboard::F2)
+				{
+					settings.resolution.x = 800;
+					settings.resolution.y = 600;
+					settings.fullscreen = false;
+					resetWindow();
+				}
 			}
 		}
 
@@ -115,6 +119,7 @@ void Game::run()
 		}
 
 		//Clear the render textures for drawing
+		window.clear(sf::Color::Black);
 		lightBuffer.clear(sf::Color::Black);
 
 		//Drawing all objects, ordered by layer
@@ -148,4 +153,30 @@ void Game::run()
 		//End game loop and display new frame
 		window.display();
 	}
+}
+
+void Game::resetWindow()
+{
+	int style = settings.fullscreen ? sf::Style::Fullscreen : sf::Style::Close;
+
+	//Setup the light buffer
+	lightBuffer.create(settings.resolution.x, settings.resolution.y);
+	lightBufferSprite.setTexture(lightBuffer.getTexture());
+	lightBufferSprite.setTextureRect
+	(
+		sf::IntRect
+		(
+			0, 
+			settings.resolution.y,
+			settings.resolution.x,
+			-settings.resolution.y
+		)
+	);
+
+	window.create
+	(
+		sf::VideoMode(settings.resolution.x, settings.resolution.y),
+		title,
+		style
+	);
 }
