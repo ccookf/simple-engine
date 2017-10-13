@@ -41,7 +41,7 @@ Dude::Dude()
 	hitbox.parent = this;
 	hitbox.setDimensions(64, 64);
 	hitbox.setOrigin(32, 32);
-	hitbox.isVisible = true;
+	//hitbox.isVisible = true;
 	hitbox.collisionMask = CL_Physics;
 
 	cbm->add(CL_Physics, &sight);
@@ -49,7 +49,7 @@ Dude::Dude()
 	sight.setDimensions(250, 20);
 	sight.setOrigin(32, 32);
 	sight.setOffset(32, 18);
-	sight.isVisible = true;
+	//sight.isVisible = true;
 	sight.color = sf::Color(255,255,0,128);
 }
 

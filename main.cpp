@@ -10,7 +10,6 @@
 
 #include <iostream>
 #include <stdlib.h>
-#include <thread>
 #include <time.h>
 #include <vector>
 
@@ -36,11 +35,11 @@ int main()
 
 	//player & Light
 	sf::Color lightColors[] = {
-		sf::Color(255, 0, 0, 255),
-		sf::Color(255, 255, 0, 255),
-		sf::Color(0, 255, 255, 255),
-		sf::Color(255, 0, 255, 255),
-		sf::Color(0, 0, 255, 255)
+		sf::Color(255, 128, 128, 255),
+		sf::Color(255, 255, 128, 255),
+		sf::Color(128, 255, 255, 255),
+		sf::Color(255, 128, 255, 255),
+		sf::Color(128, 128, 255, 255)
 	};
 	for (int i = 0; i < 5; i++)
 	{
@@ -64,19 +63,11 @@ int main()
 	FpsCounter fps;
 
 	//Setup the backbuffer and light buffer
-	sf::RenderTexture backBuffer;
-	backBuffer.create(800, 600);
-	sf::Sprite backBufferSprite;
-	backBufferSprite.setTexture(backBuffer.getTexture());
-
 	sf::RenderTexture lightBuffer;
 	lightBuffer.create(800, 600);
-
-	//Setup the lighting shader
-	sf::Shader lightShader;
-	lightShader.loadFromFile("assets/multiply-light.frag", sf::Shader::Fragment);
-	lightShader.setUniform("lightmap", lightBuffer.getTexture());
-	lightShader.setUniform("texture", sf::Shader::CurrentTexture);
+	sf::Sprite lightBufferSprite;
+	lightBufferSprite.setTexture(lightBuffer.getTexture());
+	lightBufferSprite.setTextureRect(sf::IntRect(0,600,800,-600));
 
 	while (window.isOpen())
 	{
@@ -100,7 +91,7 @@ int main()
 		for (auto layer : RegisteredCollisionLayers)
 		{
 			//For every box in every layer
-			for (auto box : collisionLayers[layer])
+			for (auto box : collisionBoxManager->map[layer])
 			{
 				//Skip boxes without parents or inactive gameobjects
 				if (box->parent == nullptr || !box->parent->active) continue;
@@ -111,7 +102,7 @@ int main()
 					//Check if the box can interact with the other layer
 					if (box->collisionMask & otherLayer)
 					{
-						for (auto otherBox : collisionLayers[otherLayer])
+						for (auto otherBox : collisionBoxManager->map[otherLayer])
 						{
 							box->checkCollision(otherBox);
 						}
@@ -122,7 +113,6 @@ int main()
 
 		//Clear the render textures for drawing
 		lightBuffer.clear(sf::Color::Black);
-		backBuffer.clear(sf::Color::Black);
 
 		//Drawing all objects, ordered by layer
 		for (auto layer : RegisteredSpriteLayers)
@@ -130,7 +120,7 @@ int main()
 			if (layer == SpriteLayer::Lights)
 			{
 				//Draw all lights to the light buffer
-				for (auto obj : spriteLayers[layer])
+				for (auto obj : spriteLayerManager->map[layer])
 				{
 					obj->Draw(lightBuffer);
 				}
@@ -138,15 +128,15 @@ int main()
 			else
 			{
 				//Draw to back buffer
-				for (auto obj : spriteLayers[layer])
+				for (auto obj : spriteLayerManager->map[layer])
 				{
-					obj->Draw(backBuffer);
+					obj->Draw(window);
 				}
 			}
 		}
 
-		//Apply the light map to the back buffer and draw to window
-		window.draw(backBufferSprite, &lightShader);
+		//Multiply the light map onto the window
+		window.draw(lightBufferSprite, sf::RenderStates(sf::BlendMultiply));
 		
 		//Update the fps counter
 		fps.Update(deltaTime);

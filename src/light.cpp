@@ -25,7 +25,7 @@ void Light::Draw(sf::RenderTarget &target)
 {
 	sprite.setPosition(position);
 	sprite.setColor(color);
-	target.draw(sprite);
+	target.draw(sprite, sf::RenderStates(sf::BlendAdd));
 }
 
 std::vector<Light*> Light::lights;

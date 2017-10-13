@@ -18,6 +18,18 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"taskName": "build release",
+			"type": "shell",
+			"command": "g++",
+			"args": [
+				"-O3",
+				"-o", "game", "main.cpp",
+				"-I", "C:/SFML-2.4.2/include",
+				"-I", "./include/", "./src/*.cpp",
+				"-lsfml-system", "-lsfml-window", "-lsfml-graphics"
+			]
 		}
 	]
 }
