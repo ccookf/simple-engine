@@ -5,18 +5,22 @@
 
 GameObject::GameObject()
 {
-	position = sf::Vector2f(0, 0);
-	parentPositionOffset = sf::Vector2f(0, 0);
-	layer = SpriteLayer::Default;
+	//Register the object in the objects list and on the default sprite layer
 	gameObjects.push_back(this);
+	setLayer(SpriteLayer::Default);
 }
 
 GameObject::~GameObject()
 {
 	for (int i = 0; i < gameObjects.size(); i++)
-	{
 		if (gameObjects[i] == this) gameObjects.erase(gameObjects.begin()+i);
-	}
+}
+
+void GameObject::setLayer(SpriteLayer layer)
+{
+	SpriteLayerManager* slm = SpriteLayerManager::instance();
+	slm->remove(this->layer, this);
+	slm->add(layer, this);
 }
 
 /**

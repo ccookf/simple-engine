@@ -1,6 +1,9 @@
 #ifndef COLLISION_BOX_H
 #define COLLISION_BOX_H
 
+#include <SFML/System.hpp>
+#include <SFML/Graphics.hpp>
+
 #include "gameobject.h"
 
 class GameObject;

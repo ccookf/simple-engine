@@ -9,9 +9,10 @@
 #include <SFML/Graphics.hpp>
 
 #include <iostream>
-#include <vector>
 #include <stdlib.h>
+#include <thread>
 #include <time.h>
+#include <vector>
 
 #include "fps-counter.h"
 #include "gameobject.h"
@@ -30,10 +31,10 @@ int main()
 	#endif
 	
 	sf::RenderWindow window(sf::VideoMode(800, 600), "Sprite Testing", sf::Style::Close);
-	window.setFramerateLimit(144);
+	//window.setFramerateLimit(144);
 
 	//player & Light
-	sf::Color lights[] = {
+	sf::Color lightColors[] = {
 		sf::Color(255, 0, 0, 255),
 		sf::Color(255, 255, 0, 255),
 		sf::Color(0, 255, 255, 255),
@@ -46,13 +47,15 @@ int main()
 		dude->position = sf::Vector2f(100*i, 100*i);
 		Light* light = new Light;
 		light->setParent(dude);
-		light->color = lights[i];
+		light->color = lightColors[i];
 	}
 
 	//background
 	BackgroundPic* pic = new BackgroundPic;
 
 	//Engine maintenance
+	SpriteLayerManager* spriteLayerManager = SpriteLayerManager::instance();
+	std::map<SpriteLayer, std::vector<GameObject*>> &spriteLayers = spriteLayerManager->map;
 	std::vector<GameObject*> &gameObjects = GameObject::gameObjects;
 	std::vector<CollisionBox*> &collisionBoxes = CollisionBox::boxes;
 	sf::Clock clock;
@@ -107,15 +110,27 @@ int main()
 		backBuffer.clear(sf::Color::Black);
 
 		//Drawing all objects, ordered by layer
-		for (int j = 0; j < spriteLayers.size(); j++)
-			for (int i = 0; i < gameObjects.size(); i++)
-				if (gameObjects[i]->layer == spriteLayers[j])
+		for (auto layer : RegisteredSpriteLayers)
+		{
+			if (layer == SpriteLayer::Lights)
+			{
+				//Draw all lights to the light buffer
+				for (auto obj : spriteLayers[layer])
 				{
-					if (gameObjects[i]->layer == SpriteLayer::Lights)
-						gameObjects[i]->Draw(lightBuffer);
-					else gameObjects[i]->Draw(backBuffer);
+					obj->Draw(lightBuffer);
 				}
+			}
+			else
+			{
+				//Draw to back buffer
+				for (auto obj : spriteLayers[layer])
+				{
+					obj->Draw(backBuffer);
+				}
+			}
+		}
 
+		//Apply the light map to the back buffer and draw to window
 		window.draw(backBufferSprite, &lightShader);
 		
 		//Update the fps counter

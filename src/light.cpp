@@ -10,7 +10,7 @@ Light::Light()
 
 	sprite.setTexture(*TextureManager::getTexture("assets/light-big.png"));
 	parentPositionOffset = sf::Vector2f(-192,-192);
-	layer = SpriteLayer::Lights;
+	setLayer(SpriteLayer::Lights);
 	color = sf::Color(64,64,64,255);
 }
 

@@ -13,7 +13,7 @@
 
 Dude::Dude()
 {
-	layer = SpriteLayer::Player;
+	setLayer(SpriteLayer::Player);
 
 	//Idle animation
 	idle.frames = {
@@ -54,6 +54,8 @@ Dude::Dude()
 
 void Dude::Update(float deltaTime)
 {
+	if (!active) return; 
+
 	velocity = sf::Vector2f(0, 0);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		velocity.y = -speed;
@@ -83,6 +85,8 @@ void Dude::Update(float deltaTime)
 
 void Dude::Draw(sf::RenderTarget &target)
 {
+	if (!active) return;
+	
 	//update and draw sprite
 	walking.sprite.setPosition(position);
 	target.draw(walking.sprite);
