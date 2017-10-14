@@ -13,6 +13,7 @@ ParticleManager* ParticleManager::instance()
 }
 
 // @todo test if storing free particles in a queue is faster
+// Oct 14, 2017 - I tried with queues and vectors, no benefit. draw() is the problem
 Particle* ParticleManager::getFreeParticle()
 {
 	for (Particle* ptr = particles; ptr < particles + MAX_PARTICLE_COUNT; ++ptr)
@@ -27,6 +28,7 @@ Particle* ParticleManager::getFreeParticle()
 	return nullptr;
 }
 
+// @todo - Desperately need to implement a batching solution
 void ParticleManager::updateAndDraw(sf::RenderTarget& target)
 {
 	#ifdef DEBUG
