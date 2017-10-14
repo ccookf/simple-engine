@@ -29,6 +29,7 @@ void ParticleEmitter::update(float deltaTime)
 		//Prepare the particle to be emitted
 		particle.position = parent->position + parentPositionOffset;
 		particle.active = true;
+		if (particle.randomized) particle.randomize();
 
 		for (int i = 0; i < emissionCount; i++)
 		{

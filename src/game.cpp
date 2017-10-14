@@ -37,11 +37,11 @@ void Game::run()
 
 	//player & Light
 	sf::Color lightColors[] = {
-		sf::Color(255, 128, 128, 128),
-		sf::Color(255, 255, 128, 128),
-		sf::Color(128, 255, 255, 128),
-		sf::Color(255, 128, 255, 128),
-		sf::Color(128, 128, 255, 128)
+		sf::Color(255, 128, 128, 64),
+		sf::Color(255, 255, 128, 64),
+		sf::Color(128, 255, 255, 64),
+		sf::Color(255, 128, 255, 64),
+		sf::Color(128, 128, 255, 64)
 	};
 	for (int i = 0; i < 5; i++)
 	{

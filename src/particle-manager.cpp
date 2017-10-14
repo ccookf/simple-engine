@@ -12,7 +12,7 @@ ParticleManager* ParticleManager::instance()
 	return _instance;
 }
 
-
+// @todo test if storing free particles in a queue is faster
 Particle* ParticleManager::getFreeParticle()
 {
 	for (Particle* ptr = particles; ptr < particles + MAX_PARTICLE_COUNT; ++ptr)
@@ -40,7 +40,10 @@ void ParticleManager::updateAndDraw(float deltaTime, sf::RenderTarget& target)
 		
 		#ifdef DEBUG
 		if (ptr->active) active++;
-		activeParticles = active;
 		#endif
 	}
+
+	#ifdef DEBUG
+	activeParticles = active;
+	#endif
 }

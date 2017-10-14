@@ -1,7 +1,7 @@
 #ifndef PARTICLE_MANAGER_H
 #define PARTICLE_MANAGER_H
 
-#define MAX_PARTICLES 500
+#define MAX_PARTICLES 3000
 
 #include <SFML/Graphics.hpp>
 #include "particle.h"

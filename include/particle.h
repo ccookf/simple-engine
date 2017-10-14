@@ -8,17 +8,20 @@ class Particle
 {
 public:
 	bool active {false};
+	bool randomized {false};
 	float lifespan {0};
 
 	sf::Vector2f position {0, 0};
 	sf::Vector2f velocity {0, 0};
 	sf::Vector2f acceleration {0, 0};
+	sf::Vector2f randomizeVelocity {0, 0}; //Variance
 
 	sf::Sprite sprite;
 	sf::Color color;
 
 	Particle() {}
 	~Particle() {}
+	virtual void randomize();
 	virtual void update(float deltaTime);
 	virtual void draw(sf::RenderTarget& target);
 

@@ -53,11 +53,14 @@ Dude::Dude()
 	sight.color = sf::Color(255,255,0,128);
 
 	//Setup the particle emission
-	sparkle.lifespan = 2.0f;
+	sparkle.lifespan = 3.0f;
 	sparkle.sprite.setTexture(*TextureManager::getTexture("assets/light-small.png"));
 	sparkle.sprite.setOrigin(16, 16);
 	sparkle.color = sf::Color(255,255,255,255);
-	sparkleEmitter = ParticleEmitter(sparkle, 0.025, this);
+	sparkle.acceleration = sf::Vector2f(0, 100);
+	sparkle.randomized = true;
+	sparkle.randomizeVelocity = sf::Vector2f(300, 300);
+	sparkleEmitter = ParticleEmitter(sparkle, 0.01, this);
 	sparkleEmitter.start();
 }
 
