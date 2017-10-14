@@ -57,9 +57,11 @@ void Animation::stop()
 /**
  * Progresses the animation based on the elapsed and changed time
  */
-void Animation::Update(float deltaTime)
+void Animation::update()
 {
 	if (!playing) return;
+
+	float deltaTime = game->deltaTime;
 	
 	//Update the time and reset if looping
 	elapsed += deltaTime;

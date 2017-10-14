@@ -10,14 +10,21 @@ class Game
 {
 public:
 
+	//Game settings
 	std::string title {"Game"};
 	Settings settings;
-	sf::RenderWindow& window;
+
+	//Runtime variables
+	static float deltaTime;
+
+	//Rendering
 	sf::RenderTexture lightBuffer;
 	sf::Sprite lightBufferSprite;
+	sf::RenderWindow& window;
 
 	~Game();
-	static Game* instance(sf::RenderWindow& window);
+	static Game* create(sf::RenderWindow& window);
+	static Game* instance();
 
 	void run();
 	void resetWindow();

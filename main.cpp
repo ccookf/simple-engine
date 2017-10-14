@@ -12,7 +12,7 @@
 int main()
 {
 	sf::RenderWindow window;
-	Game* game = Game::instance(window);
+	Game* game = Game::create(window);
 	game->run();
 
 	return 0;

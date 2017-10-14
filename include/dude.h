@@ -31,9 +31,9 @@ public:
 	CollisionBox sight;
 
 	Dude();
-	void Update(float deltaTime);
-	void Draw(sf::RenderTarget &target);
-	void OnCollision(CollisionBox* own, CollisionBox* other);
+	void update();
+	void draw(sf::RenderTarget &target);
+	void onCollision(CollisionBox* own, CollisionBox* other);
 };
 
 #endif

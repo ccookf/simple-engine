@@ -8,6 +8,7 @@
 
 #include "sprite-layers.h"
 #include "collision-box.h"
+#include "game.h"
 
 //Forward declarations
 class CollisionBox;
@@ -28,10 +29,10 @@ public:
 	GameObject();
 	~GameObject();
 	void setLayer(SpriteLayer layer);
-	virtual void Update(float deltaTime) {}
-	virtual void Draw(sf::RenderTarget &target) {}
-	void PhysicsUpdate(float deltaTime);
-	virtual void OnCollision(CollisionBox* own, CollisionBox* other) {}
+	virtual void update() {}
+	virtual void draw(sf::RenderTarget &target) {}
+	void physicsUpdate();
+	virtual void onCollision(CollisionBox* own, CollisionBox* other) {}
 
 	//Parent-Child relationship functions
 	void setParent(GameObject* parent);
@@ -47,7 +48,8 @@ public:
 private:
 	SpriteLayer layer;
 
-	GameObject* parent;
+	Game* game {nullptr};
+	GameObject* parent {nullptr};
 	std::forward_list<GameObject*> children;
 };
 

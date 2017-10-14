@@ -14,11 +14,11 @@ void ParticleEmitter::stop()
 	active = false;
 }
 
-void ParticleEmitter::update(float deltaTime)
+void ParticleEmitter::update()
 {
 	if (!active | parent == nullptr) return;
 
-	elapsed += deltaTime;
+	elapsed += Game::deltaTime;
 	if (elapsed < rate) return;
 	else
 	{

@@ -5,21 +5,26 @@
 
 #include <SFML/Graphics.hpp>
 #include "particle.h"
+#include "game.h"
 
 class ParticleManager
 {
 public:
 	Particle* getFreeParticle();
-	void updateAndDraw(float deltaTime, sf::RenderTarget& target);
+	void updateAndDraw(sf::RenderTarget& target);
 
 	static ParticleManager* instance();
 
 private:
 	static ParticleManager* _instance;
-	int activeParticles {0};
+	Game* game {Game::instance()};
 	const int MAX_PARTICLE_COUNT {MAX_PARTICLES};
 	Particle particles[MAX_PARTICLES];
 	ParticleManager() {}
+
+	#ifdef DEBUG
+	int activeParticles {0};
+	#endif
 };
 
 #endif

@@ -26,8 +26,8 @@ public:
 
 	GameObject* parent { nullptr };
 
-	void Update();
-	void Draw(sf::RenderTarget &target);
+	void update();
+	void draw(sf::RenderTarget &target);
 	void setDimensions(float width, float height);
 	void setOrigin(float x, float y);
 	void setOffset(float x, float y);

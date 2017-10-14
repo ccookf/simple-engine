@@ -5,6 +5,8 @@
 
 GameObject::GameObject()
 {
+	game = Game::instance();
+	
 	//Register the object in the objects list and on the default sprite layer
 	gameObjects.push_back(this);
 	setLayer(SpriteLayer::Default);
@@ -26,10 +28,10 @@ void GameObject::setLayer(SpriteLayer layer)
 /**
  * Updates acceleration, velocity, and position
  */
-void GameObject::PhysicsUpdate(float deltaTime)
+void GameObject::physicsUpdate()
 {
-	velocity += deltaTime * acceleration;
-	position += deltaTime * velocity;
+	velocity += Game::deltaTime * acceleration;
+	position += Game::deltaTime * velocity;
 	updateChildrenTransform();
 }
 

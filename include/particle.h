@@ -22,7 +22,7 @@ public:
 	Particle() {}
 	~Particle() {}
 	virtual void randomize();
-	virtual void update(float deltaTime);
+	virtual void update();
 	virtual void draw(sf::RenderTarget& target);
 
 private:

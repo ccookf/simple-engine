@@ -1,6 +1,7 @@
 #include "particle.h"
 
 #include <stdlib.h>
+#include "game.h"
 #include "texture-manager.h"
 
 void Particle::randomize()
@@ -12,11 +13,12 @@ void Particle::randomize()
 	velocity.y = randomizeVelocity.x * random - (randomizeVelocity.x / 2.0f);	
 }
 
-void Particle::update(float deltaTime)
+void Particle::update()
 {
 	if (!active) return;
 	
 	//Update physics
+	float deltaTime = Game::deltaTime;
 	velocity += deltaTime * acceleration;
 	position += deltaTime * velocity;
 

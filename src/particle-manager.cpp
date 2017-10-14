@@ -27,7 +27,7 @@ Particle* ParticleManager::getFreeParticle()
 	return nullptr;
 }
 
-void ParticleManager::updateAndDraw(float deltaTime, sf::RenderTarget& target)
+void ParticleManager::updateAndDraw(sf::RenderTarget& target)
 {
 	#ifdef DEBUG
 	int active = 0;
@@ -35,7 +35,7 @@ void ParticleManager::updateAndDraw(float deltaTime, sf::RenderTarget& target)
 	
 	for (Particle* ptr = particles; ptr < particles + MAX_PARTICLE_COUNT; ++ptr)
 	{
-		ptr->update(deltaTime);
+		ptr->update();
 		ptr->draw(target);
 		
 		#ifdef DEBUG

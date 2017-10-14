@@ -1,6 +1,8 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
+#include "game.h"
+
 class AnimationFrame
 {
 public:
@@ -39,7 +41,10 @@ public:
 	void calculateMaxDuration();
 	void play();
 	void stop();
-	void Update(float deltaTime);
+	void update();
+
+private:
+	Game* game {Game::instance()};
 };
 
 #endif

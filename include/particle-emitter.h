@@ -4,6 +4,7 @@
 #include <SFML/System.hpp>
 #include "particle.h"
 #include "particle-manager.h"
+#include "game.h"
 #include "gameobject.h"
 
 class ParticleEmitter
@@ -30,7 +31,7 @@ public:
 	//Methods
 	virtual void start();
 	virtual void stop();
-	virtual void update(float deltaTime);
+	virtual void update();
 
 private:
 	ParticleManager* particleManager {nullptr};

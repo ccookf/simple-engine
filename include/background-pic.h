@@ -16,7 +16,7 @@ public:
 		sprite.setTexture(*TextureManager::getTexture("assets/photo.png"));
 	}
 
-	void Draw(sf::RenderTarget &target) 
+	void draw(sf::RenderTarget &target) 
 	{ 
 		target.draw(sprite); 
 	}

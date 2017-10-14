@@ -16,14 +16,16 @@
 #include "texture-manager.h"
 
 Game* Game::_instance;
+float Game::deltaTime;
 
 Game::Game(sf::RenderWindow& window) : window(window) {}
 Game::~Game() {}
-Game* Game::instance(sf::RenderWindow& window)
+Game* Game::create(sf::RenderWindow& window)
 {
 	if (_instance == nullptr) _instance = new Game(window);
 	return _instance;
 }
+Game* Game::instance() { return _instance; }
 
 void Game::run()
 {
@@ -92,9 +94,9 @@ void Game::run()
 		}
 
 		//Update all GameObjects
-		float deltaTime = clock.restart().asSeconds();
+		deltaTime = clock.restart().asSeconds();
 		for (int i = 0; i < gameObjects.size(); i++)
-			gameObjects[i]->Update(deltaTime);
+			gameObjects[i]->update();
 
 		//Check for collisions
 		for (auto layer : RegisteredCollisionLayers)
@@ -122,7 +124,7 @@ void Game::run()
 
 		//Clear the render textures for drawing
 		window.clear(sf::Color::Black);
-		lightBuffer.clear(sf::Color::Black);
+		lightBuffer.clear(sf::Color(128, 128, 128, 255));
 
 		//Drawing all objects, ordered by layer
 		for (auto layer : RegisteredSpriteLayers)
@@ -132,7 +134,7 @@ void Game::run()
 				//Draw all lights to the light buffer
 				for (auto obj : spriteLayerManager->map[layer])
 				{
-					obj->Draw(lightBuffer);
+					obj->draw(lightBuffer);
 				}
 			}
 			else
@@ -140,13 +142,13 @@ void Game::run()
 				//Draw to back buffer
 				for (auto obj : spriteLayerManager->map[layer])
 				{
-					obj->Draw(window);
+					obj->draw(window);
 				}
 			}
 		}
 
 		//Update and draw all particles
-		particleManager->updateAndDraw(deltaTime, lightBuffer);
+		particleManager->updateAndDraw(lightBuffer);
 
 		//Multiply the light map onto the window
 		window.draw(lightBufferSprite, sf::RenderStates(sf::BlendMultiply));

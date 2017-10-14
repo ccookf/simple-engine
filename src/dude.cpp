@@ -64,7 +64,7 @@ Dude::Dude()
 	sparkleEmitter.start();
 }
 
-void Dude::Update(float deltaTime)
+void Dude::update()
 {
 	if (!active) return; 
 
@@ -83,31 +83,32 @@ void Dude::Update(float deltaTime)
 		velocity.x = speed;
 		scale.x = abs(scale.x);
 	}
-	PhysicsUpdate(deltaTime);
-	hitbox.Update();
-	sight.Update();
-	sparkleEmitter.update(deltaTime);
+
+	physicsUpdate();
+	hitbox.update();
+	sight.update();
+	sparkleEmitter.update();
 
 	//Determine and update the active animation
 	if (mag(velocity) < 0.1) activeAnimation = &idle;
 	else activeAnimation = &walking;
 
 	if (!activeAnimation->playing) activeAnimation->play();
-	activeAnimation->Update(deltaTime);
+	activeAnimation->update();
 }
 
-void Dude::Draw(sf::RenderTarget &target)
+void Dude::draw(sf::RenderTarget &target)
 {
 	if (!active) return;
 	
 	//update and draw sprite
 	walking.sprite.setPosition(position);
 	target.draw(walking.sprite);
-	hitbox.Draw(target);
-	sight.Draw(target);
+	hitbox.draw(target);
+	sight.draw(target);
 }
 
-void Dude::OnCollision(CollisionBox* own, CollisionBox* other)
+void Dude::onCollision(CollisionBox* own, CollisionBox* other)
 {
 	//Collisions yo
 }

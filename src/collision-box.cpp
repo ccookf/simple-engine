@@ -14,8 +14,8 @@ CollisionBoxManager* CollisionBoxManager::_instance;
 void CollisionBox::checkCollision(CollisionBox* other)
 {	
 	if (!box.intersects(other->box)) return;
-	parent->OnCollision(this, other);
-	other->parent->OnCollision(other, this);
+	parent->onCollision(this, other);
+	other->parent->onCollision(other, this);
 }
 
 void CollisionBox::setDimensions(float width, float height)
@@ -36,7 +36,7 @@ void CollisionBox::setOffset(float x, float y)
 	parentPositionOffset.y = y;
 }
 
-void CollisionBox::Update()
+void CollisionBox::update()
 {
 	sf::Vector2f newOffset = parentPositionOffset - origin;
 	
@@ -52,7 +52,7 @@ void CollisionBox::Update()
 	box.height = height * parent->scale.y;
 }
 
-void CollisionBox::Draw(sf::RenderTarget &target)
+void CollisionBox::draw(sf::RenderTarget &target)
 {
 	if (!isVisible) return;
 	sf::RectangleShape shape(sf::Vector2f(box.width, box.height));
