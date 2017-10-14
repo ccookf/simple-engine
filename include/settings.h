@@ -9,6 +9,8 @@ public:
 
 	sf::Vector2i resolution {800, 600};
 	bool fullscreen {false};
+	bool fpsCapped {false};
+	int fpsCap {144};
 
 	Settings() {}
 	~Settings() {}

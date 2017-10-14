@@ -51,6 +51,14 @@ Dude::Dude()
 	sight.setOffset(32, 18);
 	//sight.isVisible = true;
 	sight.color = sf::Color(255,255,0,128);
+
+	//Setup the particle emission
+	sparkle.lifespan = 2.0f;
+	sparkle.sprite.setTexture(*TextureManager::getTexture("assets/light-small.png"));
+	sparkle.sprite.setOrigin(16, 16);
+	sparkle.color = sf::Color(255,255,255,255);
+	sparkleEmitter = ParticleEmitter(sparkle, 0.025, this);
+	sparkleEmitter.start();
 }
 
 void Dude::Update(float deltaTime)
@@ -75,6 +83,7 @@ void Dude::Update(float deltaTime)
 	PhysicsUpdate(deltaTime);
 	hitbox.Update();
 	sight.Update();
+	sparkleEmitter.update(deltaTime);
 
 	//Determine and update the active animation
 	if (mag(velocity) < 0.1) activeAnimation = &idle;

@@ -4,6 +4,8 @@
 #include "gameobject.h"
 #include "animation.h"
 #include "collision-box.h"
+#include "particle.h"
+#include "particle-emitter.h"
 
 enum class PlayerState
 {
@@ -21,6 +23,9 @@ public:
 	Animation* activeAnimation { &idle };
 	Animation idle;
 	Animation walking;
+
+	Particle sparkle;
+	ParticleEmitter sparkleEmitter;
 
 	CollisionBox hitbox;
 	CollisionBox sight;

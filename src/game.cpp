@@ -12,6 +12,7 @@
 #include "fps-counter.h"
 #include "gameobject.h"
 #include "light.h"
+#include "particle-manager.h"
 #include "texture-manager.h"
 
 Game* Game::_instance;
@@ -36,11 +37,11 @@ void Game::run()
 
 	//player & Light
 	sf::Color lightColors[] = {
-		sf::Color(255, 128, 128, 255),
-		sf::Color(255, 255, 128, 255),
-		sf::Color(128, 255, 255, 255),
-		sf::Color(255, 128, 255, 255),
-		sf::Color(128, 128, 255, 255)
+		sf::Color(255, 128, 128, 128),
+		sf::Color(255, 255, 128, 128),
+		sf::Color(128, 255, 255, 128),
+		sf::Color(255, 128, 255, 128),
+		sf::Color(128, 128, 255, 128)
 	};
 	for (int i = 0; i < 5; i++)
 	{
@@ -57,6 +58,7 @@ void Game::run()
 	//Engine maintenance
 	SpriteLayerManager* spriteLayerManager = SpriteLayerManager::instance();
 	CollisionBoxManager* collisionBoxManager = CollisionBoxManager::instance();
+	ParticleManager* particleManager = ParticleManager::instance();
 	std::vector<GameObject*> &gameObjects = GameObject::gameObjects;
 	sf::Clock clock;
 	FpsCounter fps;
@@ -74,9 +76,9 @@ void Game::run()
 
 				if (event.key.code == sf::Keyboard::F1)
 				{
-					settings.resolution.x = 1280;
-					settings.resolution.y = 720;
-					settings.fullscreen = true;
+					settings.resolution.x = 1600;
+					settings.resolution.y = 900;
+					settings.fullscreen = false;
 					resetWindow();
 				}
 				if (event.key.code == sf::Keyboard::F2)
@@ -143,6 +145,9 @@ void Game::run()
 			}
 		}
 
+		//Update and draw all particles
+		particleManager->updateAndDraw(deltaTime, lightBuffer);
+
 		//Multiply the light map onto the window
 		window.draw(lightBufferSprite, sf::RenderStates(sf::BlendMultiply));
 		
@@ -179,4 +184,6 @@ void Game::resetWindow()
 		title,
 		style
 	);
+
+	if (settings.fpsCapped) window.setFramerateLimit(settings.fpsCap);
 }
