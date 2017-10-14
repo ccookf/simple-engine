@@ -1,5 +1,7 @@
 #include "particle-manager.h"
 
+#include <SFML/Graphics.hpp>
+
 #ifdef DEBUG
 #include <iostream>
 #endif

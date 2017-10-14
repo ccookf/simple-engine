@@ -3,7 +3,6 @@
 
 #define MAX_PARTICLES 3000
 
-#include <SFML/Graphics.hpp>
 #include "particle.h"
 #include "game.h"
 

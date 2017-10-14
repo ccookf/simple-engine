@@ -90,6 +90,18 @@ void Game::run()
 					settings.fullscreen = false;
 					resetWindow();
 				}
+
+				if (event.key.code == sf::Keyboard::Dash)
+				{
+					settings.lightLevel -= 0.01;
+					settings.lightLevel = settings.lightLevel < 0.0 ? 0.0 : settings.lightLevel;
+				}
+
+				if (event.key.code == sf::Keyboard::Equal)
+				{
+					settings.lightLevel += 0.01;
+					settings.lightLevel = settings.lightLevel > 1.0 ? 1.0 : settings.lightLevel;
+				}
 			}
 		}
 
@@ -124,7 +136,8 @@ void Game::run()
 
 		//Clear the render textures for drawing
 		window.clear(sf::Color::Black);
-		lightBuffer.clear(sf::Color(128, 128, 128, 255));
+		int bc = settings.lightLevel * 255; //set the light level
+		lightBuffer.clear(sf::Color(bc, bc, bc, 255));
 
 		//Drawing all objects, ordered by layer
 		for (auto layer : RegisteredSpriteLayers)
