@@ -8,11 +8,21 @@
 			"type": "shell",
 			"command": "g++",
 			"args": [
-				"-O2", "-D", "DEBUG", "-g",
-				"-o", "main", "main.cpp",
-				"-I", "C:/SFML-2.4.2/include",
-				"-I", "./include/", "./src/*.cpp",
-				"-lsfml-system-d", "-lsfml-window-d", "-lsfml-graphics-d"
+				"-O2",
+				"-D",
+				"DEBUG",
+				"-g",
+				"-o",
+				"main",
+				"main.cpp",
+				"-I",
+				"C:/SFML-2.4.2/include",
+				"-I",
+				"./include/",
+				"./src/*.cpp",
+				"-lsfml-system-d",
+				"-lsfml-window-d",
+				"-lsfml-graphics-d"
 			],
 			"group": {
 				"kind": "build",
@@ -25,11 +35,19 @@
 			"command": "g++",
 			"args": [
 				"-O3",
-				"-o", "game", "main.cpp",
-				"-I", "C:/SFML-2.4.2/include",
-				"-I", "./include/", "./src/*.cpp",
-				"-lsfml-system", "-lsfml-window", "-lsfml-graphics"
-			]
+				"-o",
+				"game",
+				"main.cpp",
+				"-I",
+				"C:/SFML-2.4.2/include",
+				"-I",
+				"./include/",
+				"./src/*.cpp",
+				"-lsfml-system",
+				"-lsfml-window",
+				"-lsfml-graphics"
+			],
+			"problemMatcher": []
 		}
 	]
 }

@@ -14,7 +14,7 @@ public:
 	float interval;
 	
 	FpsCounter();
-	void Update(float time);
+	void update(float time);
 };
 
 #endif

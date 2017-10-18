@@ -13,7 +13,7 @@ public:
 	Light();
 	~Light();
 
-	void Draw(sf::RenderTarget &target);
+	void draw(sf::RenderTarget &target);
 
 	static std::vector<Light*> lights;
 };

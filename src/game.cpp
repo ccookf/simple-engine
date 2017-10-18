@@ -15,9 +15,11 @@
 #include "particle-manager.h"
 #include "texture-manager.h"
 
+//Static variables
 Game* Game::_instance;
 float Game::deltaTime;
 
+//Constructors
 Game::Game(sf::RenderWindow& window) : window(window) {}
 Game::~Game() {}
 Game* Game::create(sf::RenderWindow& window)
@@ -27,6 +29,7 @@ Game* Game::create(sf::RenderWindow& window)
 }
 Game* Game::instance() { return _instance; }
 
+//Game loop
 void Game::run()
 {
 	srand(time(NULL));
@@ -35,27 +38,31 @@ void Game::run()
 	std::cout << "Launching debug build...\n";
 	#endif
 	
+	//Recreate window from stored settings
 	resetWindow();
 
-	//player & Light
-	sf::Color lightColors[] = {
-		sf::Color(255, 128, 128, 64),
-		sf::Color(255, 255, 128, 64),
-		sf::Color(128, 255, 255, 64),
-		sf::Color(255, 128, 255, 64),
-		sf::Color(128, 128, 255, 64)
-	};
-	for (int i = 0; i < 5; i++)
+	//Proxy scene load for development and testing of early systems
 	{
-		Dude* dude = new Dude;
-		dude->position = sf::Vector2f(100*i, 100*i);
-		Light* light = new Light;
-		light->setParent(dude);
-		light->color = lightColors[i];
-	}
+		//player & Light
+		sf::Color lightColors[] = {
+			sf::Color(255, 128, 128, 255),
+			sf::Color(255, 255, 128, 255),
+			sf::Color(128, 255, 255, 255),
+			sf::Color(255, 128, 255, 255),
+			sf::Color(128, 128, 255, 255)
+		};
+		for (int i = 0; i < 5; i++)
+		{
+			Dude* dude = new Dude;
+			dude->position = sf::Vector2f(100*i, 100*i);
+			Light* light = new Light;
+			light->setParent(dude);
+			light->color = lightColors[i];
+		}
 
-	//background
-	BackgroundPic* pic = new BackgroundPic;
+		//background
+		BackgroundPic* pic = new BackgroundPic;
+	}
 
 	//Engine maintenance
 	SpriteLayerManager* spriteLayerManager = SpriteLayerManager::instance();
@@ -65,6 +72,8 @@ void Game::run()
 	sf::Clock clock;
 	FpsCounter fps;
 
+	//SFML window event loop
+	// @todo replace manual input with command mapping later
 	while (window.isOpen())
 	{
 		sf::Event event;
@@ -167,7 +176,7 @@ void Game::run()
 		window.draw(lightBufferSprite, sf::RenderStates(sf::BlendMultiply));
 		
 		//Update the fps counter
-		fps.Update(deltaTime);
+		fps.update(deltaTime);
 		window.draw(fps.text);
 
 		//End game loop and display new frame

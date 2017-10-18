@@ -21,7 +21,7 @@ Light::~Light()
 		if (lights[i] == this) lights.erase(lights.begin()+i);
 }
 
-void Light::Draw(sf::RenderTarget &target)
+void Light::draw(sf::RenderTarget &target)
 {
 	sprite.setPosition(position);
 	sprite.setColor(color);

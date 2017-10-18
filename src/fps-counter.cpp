@@ -22,7 +22,7 @@ FpsCounter::FpsCounter()
 	interval = 0.5;
 }
 
-void FpsCounter::Update(float deltaTime)
+void FpsCounter::update(float deltaTime)
 {
 	samples.push_back(deltaTime);
 	if (samples.size() > SAMPLES) samples.pop_front();
