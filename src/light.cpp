@@ -2,6 +2,7 @@
 
 #include <SFML/System.hpp>
 #include "texture-manager.h"
+#include "game.h"
 
 Light::Light()
 {
@@ -23,7 +24,10 @@ Light::~Light()
 
 void Light::draw(sf::RenderTarget &target)
 {
-	sprite.setPosition(position);
+	//Temporary workaround for lighting renders to fix the viewport
+	sf::Vector2f pos = static_cast<sf::Vector2f>(Game::instance()->window.mapCoordsToPixel(position));
+	
+	sprite.setPosition(pos);
 	sprite.setColor(color);
 	target.draw(sprite, sf::RenderStates(sf::BlendAdd));
 }

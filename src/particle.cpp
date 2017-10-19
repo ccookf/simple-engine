@@ -31,7 +31,10 @@ void Particle::draw(sf::RenderTarget& target)
 {
 	if (!active) return;
 
-	sprite.setPosition(position);
+	//Temporary workaround for lighting renders to fix the viewport
+	sf::Vector2f pos = static_cast<sf::Vector2f>(Game::instance()->window.mapCoordsToPixel(position));
+
+	sprite.setPosition(pos);
 	color.a = 255 * (1.0 - lifetime/lifespan);
 	sprite.setColor(color);
 	target.draw(sprite, sf::RenderStates(sf::BlendAdd));

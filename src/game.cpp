@@ -162,8 +162,9 @@ void Game::run()
 		int bc = settings.lightLevel * 255; //set the light level
 		lightBuffer.clear(sf::Color(bc, bc, bc, 255));
 
-		//Update the camera to set the render region
+		//Update the camera & light buffer to set the render region
 		camera->update();
+		lightBufferSprite.setPosition(window.mapPixelToCoords(sf::Vector2i(0, 0)));
 
 		//Drawing all objects, ordered by layer
 		for (auto layer : RegisteredSpriteLayers)
@@ -194,6 +195,7 @@ void Game::run()
 		
 		//Update the fps counter
 		fps.update(deltaTime);
+		fps.text.setPosition(window.mapPixelToCoords(sf::Vector2i(0,0)));
 		window.draw(fps.text);
 
 		//End game loop and display new frame
@@ -227,4 +229,14 @@ void Game::resetWindow()
 	);
 
 	if (settings.fpsCapped) window.setFramerateLimit(settings.fpsCap);
+
+	//Update the camera to match the screen settings
+	camera->width = settings.resolution.x;
+	camera->height = settings.resolution.y;
+	if (activeScene != nullptr)
+	{
+		camera->bounds.width = activeScene->sceneWidth;
+		camera->bounds.height = activeScene->sceneHeight;
+	}
+	camera->update();
 }

@@ -12,7 +12,7 @@ class DemoScene : public Scene
 public:
 	Dude* dudes[5];
 	Light* lights[5];
-	TileMap room;
+	TileMap* room;
 
 	void load();
 	void unload();

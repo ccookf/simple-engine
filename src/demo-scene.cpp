@@ -9,13 +9,15 @@
 void DemoScene::load()
 {
 	//player & Light
-	sf::Color lightColors[] = {
+	sf::Color lightColors[] = 
+	{
 		sf::Color(255, 128, 128, 64),
 		sf::Color(255, 255, 128, 64),
 		sf::Color(128, 255, 255, 64),
 		sf::Color(255, 128, 255, 64),
 		sf::Color(128, 128, 255, 64)
 	};
+
 	for (int i = 0; i < 5; i++)
 	{
 		dudes[i] = new Dude;
@@ -24,12 +26,6 @@ void DemoScene::load()
 		lights[i]->setParent(dudes[i]);
 		lights[i]->color = lightColors[i];
 	}
-
-	//Set the camera to person
-	Camera* camera = Game::instance()->camera;
-	camera->target = dudes[2];
-	camera->bounds.width = 20 * 64;
-	camera->bounds.height = 20 * 64;
 
 	int area[] = 
 	{
@@ -55,7 +51,7 @@ void DemoScene::load()
 		89, 89, 89, 89, 89, 89, 89, 89, 89, 89, 89, 89, 89, 89, 89, 89, 89, 89, 89, 89 
 	};
 
-	room = TileMap
+	room = new TileMap
 	(
 		TextureManager::getTexture("assets/tilesheet.png"),
 		sf::Vector2i(64, 64),
@@ -65,6 +61,15 @@ void DemoScene::load()
 		20,
 		20
 	);
+
+	sceneWidth = 20 * 64;
+	sceneHeight = 20 * 64;
+
+	//Set the camera to person
+	Camera* camera = Game::instance()->camera;
+	camera->target = dudes[2];
+	camera->bounds.width = sceneWidth;
+	camera->bounds.height = sceneHeight;
 
 	isLoaded = true;
 }
@@ -80,6 +85,8 @@ void DemoScene::unload()
 		dudes[i] = nullptr;
 		lights[i] = nullptr;
 	}
+
+	delete room;
 
 	isLoaded = false;
 }
