@@ -9,6 +9,8 @@ The current implementation should be portable, however I have yet to test this p
 
 Once I've finished the rough engine I'd like to make a small demo game then transition into working in either a lower level graphics API or possibly working on a native alternative to the canvas web application.
 
+[Demo video 10/19/2017](https://youtu.be/9rvjZiGTbpU)
+
 ## Libraries
 
 [SFML 2.4.2](https://www.sfml-dev.org/)
