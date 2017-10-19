@@ -1,22 +1,22 @@
 #ifndef DEMO_SCENE_H
 #define DEMO_SCENE_H
 
-#include "background-pic.h"
 #include "dude.h"
 #include "light.h"
 #include "scene.h"
 #include "texture-manager.h"
+#include "tilemap.h"
 
 class DemoScene : public Scene
 {
 public:
-	std::string name {"DemoScene"};
 	Dude* dudes[5];
 	Light* lights[5];
-	BackgroundPic* pic;
+	TileMap room;
 
 	void load();
 	void unload();
+	DemoScene() { name = "DemoScene"; }
 	~DemoScene();
 };
 

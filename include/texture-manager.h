@@ -1,6 +1,7 @@
 #ifndef TEXTUREMANAGER_H
 #define TEXTUREMANAGER_H
 
+// @todo - Figure out how I want to handle texture unloading for scenes
 class TextureManager
 {
 public:

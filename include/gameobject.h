@@ -49,7 +49,7 @@ private:
 
 	Game* game {nullptr};
 	GameObject* parent {nullptr};
-	std::forward_list<GameObject*> children;
+	std::forward_list<GameObject*> children; // @todo - this shouldn't be a flist
 };
 
 #endif
