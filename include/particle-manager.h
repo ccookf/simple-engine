@@ -12,6 +12,7 @@ class ParticleManager
 public:
 	Particle* getFreeParticle();
 	void updateAndDraw(sf::RenderTarget& target);
+	void freeAllParticles();
 
 	static ParticleManager* instance();
 

@@ -31,10 +31,21 @@ Game* Game::instance() { return _instance; }
 // @notes - it may be beneficial to keep and return the old scene
 //			to allow for maintaining scene state for backtracking
 //			eg. entities maintain position rather than resetting
-void Game::loadScene(Scene* scene)
+void Game::loadScene(Scene* scene = nullptr)
 {
-	if (activeScene != nullptr) delete activeScene;
+	if (scene == nullptr)
+	{
+		std::cout << "Error, Game::loadScene() received nullptr\n";
+		return;
+	}
+	if (activeScene != nullptr) 
+	{
+		std::cout << "Unloading scene: " << activeScene->name << std::endl;
+		activeScene->unload();
+		ParticleManager::instance()->freeAllParticles();
+	}
 	activeScene = scene;
+	std::cout << "Active Scene: " << activeScene->name << std::endl;
 	activeScene->load();
 }
 
@@ -105,7 +116,7 @@ void Game::run()
 					activeScene->unload();
 
 				if (event.key.code == sf::Keyboard::L)
-					activeScene->load();
+					loadScene(new DemoScene());
 			}
 		}
 

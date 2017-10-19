@@ -51,3 +51,11 @@ void ParticleManager::updateAndDraw(sf::RenderTarget& target)
 	activeParticles = active;
 	#endif
 }
+
+void ParticleManager::freeAllParticles()
+{
+	for (Particle* ptr = particles; ptr < particles + MAX_PARTICLE_COUNT; ptr++)
+	{
+		ptr->active = false;
+	}
+}

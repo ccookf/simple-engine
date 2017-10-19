@@ -10,12 +10,14 @@
 class DemoScene : public Scene
 {
 public:
+	std::string name {"DemoScene"};
 	Dude* dudes[5];
 	Light* lights[5];
 	BackgroundPic* pic;
 
 	void load();
 	void unload();
+	~DemoScene();
 };
 
 #endif

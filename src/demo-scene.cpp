@@ -20,14 +20,27 @@ void DemoScene::load()
 	}
 
 	pic = new BackgroundPic;
+
+	isLoaded = true;
 }
 
 void DemoScene::unload()
 {
+	if (!isLoaded) return;
+
 	for (int i = 0; i < 5; i++)
 	{
 		delete dudes[i];
 		delete lights[i];
+		dudes[i] = nullptr;
+		lights[i] = nullptr;
 	}
 	delete pic;
+
+	isLoaded = false;
+}
+
+DemoScene::~DemoScene()
+{
+	if (isLoaded) unload();
 }
