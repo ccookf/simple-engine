@@ -1,6 +1,7 @@
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 
+#include "collision-box.h"
 #include "gameobject.h"
 
 #ifdef DEBUG

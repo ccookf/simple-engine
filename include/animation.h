@@ -1,7 +1,10 @@
 #ifndef ANIMATION_H
 #define ANIMATION_H
 
-#include "game.h"
+#include <SFML/Graphics.hpp>
+
+class Game;
+class GameObject;
 
 class AnimationFrame
 {
@@ -29,7 +32,7 @@ public:
 	float maxDuration;
 	int activeFrame { 0 };
 	
-	Animation() {}
+	Animation();
 
 	void setTexture(sf::Texture* tex)
 	{
@@ -44,7 +47,7 @@ public:
 	void update();
 
 private:
-	Game* game {Game::instance()};
+	Game* game {nullptr};
 };
 
 #endif

@@ -1,7 +1,20 @@
 #include "particle-emitter.h"
+
+#include "gameobject.h"
 #include "particle-manager.h"
 
 #include <cmath> //fmod(float)
+
+ParticleEmitter::ParticleEmitter()
+{
+	particleManager = ParticleManager::instance();
+}
+
+ParticleEmitter::ParticleEmitter(Particle particle, float rate, GameObject* parent) : 
+	particle(particle), rate(rate), parent(parent) 
+{
+	particleManager = ParticleManager::instance();
+}
 
 void ParticleEmitter::start()
 {

@@ -1,8 +1,9 @@
 #ifndef LIGHT_H
 #define LIGHT_H
 
+#include <SFML/Graphics.hpp>
+#include <vector>
 #include "gameobject.h"
-#include "texture-manager.h"
 
 class Light : public GameObject
 {

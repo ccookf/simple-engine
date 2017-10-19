@@ -6,13 +6,11 @@
 #include <vector>
 #include <forward_list>
 
-#include "sprite-layers.h"
-#include "collision-box.h"
 #include "game.h"
+#include "sprite-layers.h"
 
 //Forward declarations
 class CollisionBox;
-class SpriteLayerManager;
 
 class GameObject
 {

@@ -1,10 +1,16 @@
+#include "animation.h"
+
 #include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
 #include <stdlib.h>
 #include <vector>
 
+#include "game.h"
 #include "gameobject.h"
-#include "animation.h"
+
+Animation::Animation()
+{
+	game = Game::instance();
+}
 
 /**
  * Calculates the max duration based supplied frame data

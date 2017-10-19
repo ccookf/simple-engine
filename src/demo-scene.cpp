@@ -1,7 +1,9 @@
 #include "demo-scene.h"
 
 #include "camera.h"
+#include "dude.h"
 #include "game.h"
+#include "light.h"
 #include "texture-manager.h"
 
 void DemoScene::load()

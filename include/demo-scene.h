@@ -1,11 +1,11 @@
 #ifndef DEMO_SCENE_H
 #define DEMO_SCENE_H
 
-#include "dude.h"
-#include "light.h"
 #include "scene.h"
-#include "texture-manager.h"
 #include "tilemap.h"
+
+class Dude;
+class Light;
 
 class DemoScene : public Scene
 {

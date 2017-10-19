@@ -3,9 +3,9 @@
 
 #include <SFML/System.hpp>
 #include "particle.h"
-#include "particle-manager.h"
-#include "game.h"
-#include "gameobject.h"
+
+class GameObject;
+class ParticleManager;
 
 class ParticleEmitter
 {
@@ -18,15 +18,8 @@ public:
 	float rate {0};			//Interval between emissions
 
 	//Constructors
-	ParticleEmitter() 
-	{
-		particleManager = ParticleManager::instance();
-	}
-	ParticleEmitter(Particle particle, float rate, GameObject* parent) : 
-		particle(particle), rate(rate), parent(parent) 
-	{
-		particleManager = ParticleManager::instance();
-	}
+	ParticleEmitter();
+	ParticleEmitter(Particle particle, float rate, GameObject* parent);
 
 	//Methods
 	virtual void start();

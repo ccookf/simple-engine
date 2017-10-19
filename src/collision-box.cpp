@@ -4,6 +4,7 @@
 
 #include "collision-box.h"
 #include "collision-layers.h"
+#include "gameobject.h"
 
 //Static members
 CollisionBoxManager* CollisionBoxManager::_instance;

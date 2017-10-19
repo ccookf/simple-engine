@@ -1,7 +1,7 @@
-#include <SFML/System.hpp>
-#include <SFML/Graphics.hpp>
-
 #include "light.h"
+
+#include <SFML/System.hpp>
+#include "texture-manager.h"
 
 Light::Light()
 {

@@ -1,15 +1,15 @@
+#include "dude.h"
+
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <cmath>
 #include <vector>
 
-#include "texture-manager.h"
-#include "vector-math.h"
 #include "collision-layers.h"
+#include "texture-manager.h"
 #include "sprite-layers.h"
-
-#include "dude.h"
+#include "vector-math.h"
 
 Dude::Dude()
 {

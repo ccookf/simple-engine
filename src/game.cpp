@@ -11,6 +11,7 @@
 #include "fps-counter.h"
 #include "gameobject.h"
 #include "particle-manager.h"
+#include "scene.h"
 
 #include "demo-scene.h"
 

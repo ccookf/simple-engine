@@ -1,9 +1,9 @@
 #ifndef DUDE_H
 #define DUDE_H
 
-#include "gameobject.h"
 #include "animation.h"
 #include "collision-box.h"
+#include "gameobject.h"
 #include "particle.h"
 #include "particle-emitter.h"
 

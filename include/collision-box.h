@@ -6,8 +6,6 @@
 #include <map>
 #include <vector>
 
-#include "gameobject.h"
-
 class GameObject;
 
 class CollisionBox

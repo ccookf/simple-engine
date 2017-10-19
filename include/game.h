@@ -5,9 +5,9 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "settings.h"
-#include "scene.h"
 
 class Camera;
+class Scene;
 
 class Game
 {
