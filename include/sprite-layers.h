@@ -5,11 +5,11 @@
 #include <vector>
 #include "gameobject.h"
 
-enum class SpriteLayer
+enum SpriteLayer
 {
-	Default,
-	Player,
-	Lights
+	SL_Default = 0,
+	SL_Player = 1,
+	SL_Lights = 2
 };
 
 extern std::vector<SpriteLayer> RegisteredSpriteLayers;
@@ -21,12 +21,12 @@ class SpriteLayerManager
 {
 public:
 	static SpriteLayerManager* _instance;
-	std::map<SpriteLayer, std::vector<GameObject*>> map;
+	std::map<int, std::vector<GameObject*>> map;
 
 	SpriteLayerManager();
 	static SpriteLayerManager* instance();
-	void add(SpriteLayer layer, GameObject* obj);
-	bool remove(SpriteLayer layer, GameObject* obj);
+	void add(int layer, GameObject* obj);
+	bool remove(int layer, GameObject* obj);
 };
 
 #endif

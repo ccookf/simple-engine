@@ -8,7 +8,6 @@
 			"type": "shell",
 			"command": "g++",
 			"args": [
-				"-O2",
 				"-D",
 				"DEBUG",
 				"-g",

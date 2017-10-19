@@ -31,6 +31,7 @@ public:
 	CollisionBox sight;
 
 	Dude();
+	~Dude();
 	void update();
 	void draw(sf::RenderTarget &target);
 	void onCollision(CollisionBox* own, CollisionBox* other);

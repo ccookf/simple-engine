@@ -13,7 +13,7 @@
 
 Dude::Dude()
 {
-	setLayer(SpriteLayer::Player);
+	setLayer(SL_Player);
 
 	//Idle animation
 	idle.frames = {
@@ -62,6 +62,13 @@ Dude::Dude()
 	sparkle.randomizeVelocity = sf::Vector2f(300, 300);
 	sparkleEmitter = ParticleEmitter(sparkle, 0.01, this);
 	sparkleEmitter.start();
+}
+
+Dude::~Dude()
+{
+	CollisionBoxManager* cbm = CollisionBoxManager::instance();
+	cbm->remove(CL_Physics, &hitbox);
+	cbm->remove(CL_Physics, &sight);
 }
 
 void Dude::update()

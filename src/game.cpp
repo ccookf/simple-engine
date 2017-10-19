@@ -5,15 +5,13 @@
 #include <time.h>
 #include <vector>
 
-#include "background-pic.h"
 #include "collision-box.h"
 #include "collision-layers.h"
-#include "dude.h"
 #include "fps-counter.h"
 #include "gameobject.h"
-#include "light.h"
 #include "particle-manager.h"
-#include "texture-manager.h"
+
+#include "demo-scene.h"
 
 //Static variables
 Game* Game::_instance;
@@ -29,6 +27,17 @@ Game* Game::create(sf::RenderWindow& window)
 }
 Game* Game::instance() { return _instance; }
 
+//Unloads and replaces the active scene, which is then reloaded
+// @notes - it may be beneficial to keep and return the old scene
+//			to allow for maintaining scene state for backtracking
+//			eg. entities maintain position rather than resetting
+void Game::loadScene(Scene* scene)
+{
+	if (activeScene != nullptr) delete activeScene;
+	activeScene = scene;
+	activeScene->load();
+}
+
 //Game loop
 void Game::run()
 {
@@ -41,28 +50,8 @@ void Game::run()
 	//Recreate window from stored settings
 	resetWindow();
 
-	//Proxy scene load for development and testing of early systems
-	{
-		//player & Light
-		sf::Color lightColors[] = {
-			sf::Color(255, 128, 128, 255),
-			sf::Color(255, 255, 128, 255),
-			sf::Color(128, 255, 255, 255),
-			sf::Color(255, 128, 255, 255),
-			sf::Color(128, 128, 255, 255)
-		};
-		for (int i = 0; i < 5; i++)
-		{
-			Dude* dude = new Dude;
-			dude->position = sf::Vector2f(100*i, 100*i);
-			Light* light = new Light;
-			light->setParent(dude);
-			light->color = lightColors[i];
-		}
-
-		//background
-		BackgroundPic* pic = new BackgroundPic;
-	}
+	//Load the initial scene
+	loadScene(new DemoScene());
 
 	//Engine maintenance
 	SpriteLayerManager* spriteLayerManager = SpriteLayerManager::instance();
@@ -111,6 +100,12 @@ void Game::run()
 					settings.lightLevel += 0.01;
 					settings.lightLevel = settings.lightLevel > 1.0 ? 1.0 : settings.lightLevel;
 				}
+
+				if (event.key.code == sf::Keyboard::K)
+					activeScene->unload();
+
+				if (event.key.code == sf::Keyboard::L)
+					activeScene->load();
 			}
 		}
 
@@ -151,12 +146,12 @@ void Game::run()
 		//Drawing all objects, ordered by layer
 		for (auto layer : RegisteredSpriteLayers)
 		{
-			if (layer == SpriteLayer::Lights)
+			if (layer == SL_Lights)
 			{
 				//Draw all lights to the light buffer
 				for (auto obj : spriteLayerManager->map[layer])
 				{
-					obj->draw(lightBuffer);
+					if (obj->active) obj->draw(lightBuffer);
 				}
 			}
 			else
@@ -164,7 +159,7 @@ void Game::run()
 				//Draw to back buffer
 				for (auto obj : spriteLayerManager->map[layer])
 				{
-					obj->draw(window);
+					if (obj->active) obj->draw(window);
 				}
 			}
 		}

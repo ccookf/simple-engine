@@ -83,3 +83,16 @@ void CollisionBoxManager::add(int collisionLayer, CollisionBox* box)
 {
 	map[collisionLayer].push_back(box);
 }
+
+bool CollisionBoxManager::remove(int collisionLayer, CollisionBox* box)
+{
+	for (int i = 0; i < map[collisionLayer].size(); i++)
+	{
+		if (map[collisionLayer][i] == box)
+		{
+			map[collisionLayer].erase(map[collisionLayer].begin()+i);
+			return true;
+		}
+	}
+	return false;
+}

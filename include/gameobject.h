@@ -13,7 +13,6 @@
 //Forward declarations
 class CollisionBox;
 class SpriteLayerManager;
-enum class SpriteLayer;
 
 class GameObject
 {
@@ -28,7 +27,7 @@ public:
 
 	GameObject();
 	~GameObject();
-	void setLayer(SpriteLayer layer);
+	void setLayer(int spriteLayer);
 	virtual void update() {}
 	virtual void draw(sf::RenderTarget &target) {}
 	void physicsUpdate();
@@ -46,7 +45,7 @@ public:
 	static std::vector<GameObject*> gameObjects;
 
 private:
-	SpriteLayer layer;
+	int spriteLayer {0}; //SL_Default = 0
 
 	Game* game {nullptr};
 	GameObject* parent {nullptr};

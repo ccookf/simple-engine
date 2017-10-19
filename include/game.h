@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 #include <string>
 #include "settings.h"
+#include "scene.h"
 
 class Game
 {
@@ -13,6 +14,8 @@ public:
 	//Game settings
 	std::string title {"Game"};
 	Settings settings;
+
+	Scene* activeScene {nullptr};
 
 	//Runtime variables
 	static float deltaTime;
@@ -26,6 +29,7 @@ public:
 	static Game* create(sf::RenderWindow& window);
 	static Game* instance();
 
+	void loadScene(Scene* scene);
 	void run();
 	void resetWindow();
 

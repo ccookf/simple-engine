@@ -3,26 +3,38 @@
 
 #include "gameobject.h"
 
+#ifdef DEBUG
+#include <iostream>
+#endif
+
 GameObject::GameObject()
 {
 	game = Game::instance();
 	
 	//Register the object in the objects list and on the default sprite layer
 	gameObjects.push_back(this);
-	setLayer(SpriteLayer::Default);
+	setLayer(SL_Default);
 }
 
 GameObject::~GameObject()
 {
 	for (int i = 0; i < gameObjects.size(); i++)
 		if (gameObjects[i] == this) gameObjects.erase(gameObjects.begin()+i);
+
+	SpriteLayerManager* slm = SpriteLayerManager::instance();
+	bool res = slm->remove(spriteLayer, this);
+
+	#ifdef DEBUG
+	if (res == false) std::cout << "Failed to remove from sprite layer. Crash incoming!\n";
+	#endif
 }
 
-void GameObject::setLayer(SpriteLayer layer)
+void GameObject::setLayer(int spriteLayer)
 {
 	SpriteLayerManager* slm = SpriteLayerManager::instance();
-	slm->remove(this->layer, this);
-	slm->add(layer, this);
+	slm->remove(this->spriteLayer, this);
+	slm->add(spriteLayer, this);
+	this->spriteLayer = spriteLayer;
 }
 
 /**

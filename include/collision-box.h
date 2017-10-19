@@ -34,6 +34,8 @@ public:
 	void checkCollision(CollisionBox* other);
 };
 
+//Should collision boxes be stored on the object or an array?
+//Is a vector actually appropriate here?
 class CollisionBoxManager
 {
 public:
@@ -42,6 +44,7 @@ public:
 	CollisionBoxManager();
 	static CollisionBoxManager* instance();
 	void add(int collisionLayer, CollisionBox* box);
+	bool remove(int collisionLayer, CollisionBox* box);
 
 private:
 	static CollisionBoxManager* _instance;

@@ -1,10 +1,12 @@
 #include "sprite-layers.h"
 
+#include <iostream>
+
 std::vector<SpriteLayer> RegisteredSpriteLayers = 
 {
-	SpriteLayer::Default,
-	SpriteLayer::Player,
-	SpriteLayer::Lights
+	SL_Default,
+	SL_Player,
+	SL_Lights
 };
 
 //Static member initialization
@@ -27,15 +29,15 @@ SpriteLayerManager* SpriteLayerManager::instance()
 	return _instance;
 }
 
-void SpriteLayerManager::add(SpriteLayer layer, GameObject* obj)
+void SpriteLayerManager::add(int layer, GameObject* obj)
 {
 	map[layer].push_back(obj);
 }
 
 //Returns false if the object is not in the layer
-bool SpriteLayerManager::remove(SpriteLayer layer, GameObject* obj)
+bool SpriteLayerManager::remove(int layer, GameObject* obj)
 {
-	std::vector<GameObject*> vec = map[layer];
+	std::vector<GameObject*>& vec = map[layer];
 	for (int i = 0; i < vec.size(); i++)
 	{
 		if (vec[i] == obj)
