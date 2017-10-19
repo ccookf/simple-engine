@@ -1,15 +1,18 @@
 #include "demo-scene.h"
+
+#include "camera.h"
+#include "game.h"
 #include "texture-manager.h"
 
 void DemoScene::load()
 {
 	//player & Light
 	sf::Color lightColors[] = {
-		sf::Color(255, 128, 128, 255),
-		sf::Color(255, 255, 128, 255),
-		sf::Color(128, 255, 255, 255),
-		sf::Color(255, 128, 255, 255),
-		sf::Color(128, 128, 255, 255)
+		sf::Color(255, 128, 128, 64),
+		sf::Color(255, 255, 128, 64),
+		sf::Color(128, 255, 255, 64),
+		sf::Color(255, 128, 255, 64),
+		sf::Color(128, 128, 255, 64)
 	};
 	for (int i = 0; i < 5; i++)
 	{
@@ -19,6 +22,12 @@ void DemoScene::load()
 		lights[i]->setParent(dudes[i]);
 		lights[i]->color = lightColors[i];
 	}
+
+	//Set the camera to person
+	Camera* camera = Game::instance()->camera;
+	camera->target = dudes[2];
+	camera->bounds.width = 20 * 64;
+	camera->bounds.height = 20 * 64;
 
 	int area[] = 
 	{

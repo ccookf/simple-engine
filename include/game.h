@@ -7,6 +7,8 @@
 #include "settings.h"
 #include "scene.h"
 
+class Camera;
+
 class Game
 {
 public:
@@ -21,6 +23,7 @@ public:
 	static float deltaTime;
 
 	//Rendering
+	Camera* camera {nullptr};
 	sf::RenderTexture lightBuffer;
 	sf::Sprite lightBufferSprite;
 	sf::RenderWindow& window;

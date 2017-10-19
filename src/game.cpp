@@ -5,6 +5,7 @@
 #include <time.h>
 #include <vector>
 
+#include "camera.h"
 #include "collision-box.h"
 #include "collision-layers.h"
 #include "fps-counter.h"
@@ -18,8 +19,14 @@ Game* Game::_instance;
 float Game::deltaTime;
 
 //Constructors
-Game::Game(sf::RenderWindow& window) : window(window) {}
-Game::~Game() {}
+Game::Game(sf::RenderWindow& window) : window(window) 
+{
+	camera = new Camera();
+}
+Game::~Game() 
+{
+	delete camera;
+}
 Game* Game::create(sf::RenderWindow& window)
 {
 	if (_instance == nullptr) _instance = new Game(window);
@@ -153,6 +160,9 @@ void Game::run()
 		window.clear(sf::Color::Black);
 		int bc = settings.lightLevel * 255; //set the light level
 		lightBuffer.clear(sf::Color(bc, bc, bc, 255));
+
+		//Update the camera to set the render region
+		camera->update();
 
 		//Drawing all objects, ordered by layer
 		for (auto layer : RegisteredSpriteLayers)
