@@ -1,5 +1,7 @@
 #include "input.h"
 
+#include <iostream>
+
 void Input::assignActionToInputPressed(int input, int action)
 {
 	//Remap input if it is already assigned
@@ -36,6 +38,13 @@ void Input::assignCallbackToAction(int action, std::function<void()> callback)
 
 	//Add the new callback to the mapped vector of callbacks
 	callbacks[action].push_back(callback);
+}
+
+void Input::removeCallbacksFromAction(int action)
+{
+	//return if action wasn't registered yet
+	if (callbacks.count(action) == 0) return;
+	callbacks[action].clear();
 }
 
 void Input::processPressed(int input)

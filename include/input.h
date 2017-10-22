@@ -36,6 +36,11 @@ enum InputActions
  *
  * The whole point of this class is decouple raw input from events and
  * allow easy extension for key remapping in larger projects.
+ * 
+ * removeCallbacksFromAction() nukes everything from the action and should
+ * only be used on unloading scene. The ability to unregister a specific
+ * callback is questionable since I'd have to change the datatypes to 
+ * make it happen and I'm not sure that it's worthwhile. 
  */
 class Input
 {
@@ -43,6 +48,7 @@ public:
 	void assignActionToInputPressed(int input, int action);
 	void assignActionToInputReleased(int input, int action);
 	void assignCallbackToAction(int action, std::function<void()> callback);
+	void removeCallbacksFromAction(int action);
 	void processPressed(int input);
 	void processReleased(int input);
 

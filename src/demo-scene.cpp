@@ -112,6 +112,21 @@ void DemoScene::unload()
 
 	Audio::instance()->bgm.stop();
 
+	//Remove action callbacks assigned in the scene
+	Game* game = Game::instance();
+	game->input.removeCallbacksFromAction(Action_Up_Pressed);
+	game->input.removeCallbacksFromAction(Action_Down_Pressed);
+	game->input.removeCallbacksFromAction(Action_Left_Pressed);
+	game->input.removeCallbacksFromAction(Action_Right_Pressed);
+
+	game->input.removeCallbacksFromAction(Action_Up_Released);
+	game->input.removeCallbacksFromAction(Action_Down_Released);
+	game->input.removeCallbacksFromAction(Action_Left_Released);
+	game->input.removeCallbacksFromAction(Action_Right_Released);
+	
+	game->input.removeCallbacksFromAction(Action_Special_Ability_1);
+
+
 	isLoaded = false;
 }
 
