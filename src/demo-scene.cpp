@@ -35,7 +35,7 @@ void DemoScene::load()
 		sf::Color(128, 128, 255, 64)
 	};
 
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		dudes[i] = new Dude;
 		dudes[i]->position = sf::Vector2f(100*i, 100*i);
@@ -100,7 +100,7 @@ void DemoScene::unload()
 {
 	if (!isLoaded) return;
 
-	for (int i = 0; i < 1; i++)
+	for (int i = 0; i < 5; i++)
 	{
 		delete dudes[i];
 		delete lights[i];
