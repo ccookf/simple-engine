@@ -46,11 +46,12 @@ void ParticleEmitter::burst(int count)
 void ParticleEmitter::update()
 {
 	if (!active | parent == nullptr) return;
+	if (rate <= 0) return;
 
 	elapsed += Game::deltaTime;
 	if (elapsed < rate) return;
 	else
-	{
+	{		
 		//If get the number of particles to emit, 
 		//useful if the rate of emission exceeds the framerate
 		int emissionCount = static_cast<int>(elapsed / rate);

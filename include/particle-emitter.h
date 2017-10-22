@@ -15,7 +15,7 @@ public:
 	GameObject* parent {nullptr};
 	sf::Vector2f parentPositionOffset {0,0};
 
-	float rate {0};			//Interval between emissions
+	float rate {0};			//Interval between emissions, 0 = no emit
 	bool inheritVelocity {false};
 
 	//Constructors
