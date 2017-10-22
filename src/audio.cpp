@@ -68,6 +68,12 @@ void Audio::playSfx
 		std::cout << filename << " was loaded on demand.\n";
 	}
 
+	if (sounds.size() >= MAX_CONCURRENT_SFX)
+	{
+		std::cout << filename << " was not played due to too many sounds.\n";
+		return;
+	}
+
 	sf::Sound sound;
 	sound.setBuffer(*loadedSfx[filename]);
 	sound.setPitch(pitch);

@@ -2,7 +2,7 @@
 #define AUDIO_H
 
 #include <SFML/Audio.hpp>
-#include <forward_list>
+#include <list>
 #include <map>
 #include <string>
 #include <vector>
@@ -10,6 +10,7 @@
 //These could be set higher, but a new sound system should be setup if 
 //sound channels are actually a constraint
 #define MAX_AUDIO_CHANNELS 50
+#define MAX_CONCURRENT_SFX 100
 
 class Audio
 {
@@ -39,7 +40,7 @@ private:
 
 	std::map<std::string, sf::SoundBuffer*> loadedSfx;
 	std::vector<sf::Sound*> channels;
-	std::forward_list<sf::Sound> sounds;
+	std::list<sf::Sound> sounds;
 };
 
 #endif
