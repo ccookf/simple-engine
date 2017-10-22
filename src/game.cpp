@@ -90,41 +90,55 @@ void Game::run()
 			if (event.type == sf::Event::Closed) window.close();
 			if (event.type == sf::Event::KeyPressed)
 			{
-				if (event.key.code == sf::Keyboard::Escape)
-					window.close();
-
-				if (event.key.code == sf::Keyboard::F1)
+				switch (event.key.code)
 				{
-					settings.resolution.x = 1600;
-					settings.resolution.y = 900;
-					settings.fullscreen = false;
-					resetWindow();
-				}
-				if (event.key.code == sf::Keyboard::F2)
-				{
-					settings.resolution.x = 800;
-					settings.resolution.y = 600;
-					settings.fullscreen = false;
-					resetWindow();
-				}
+					case (sf::Keyboard::Escape):
+						window.close();
+						break;
 
-				if (event.key.code == sf::Keyboard::Dash)
-				{
-					settings.lightLevel -= 0.01;
-					settings.lightLevel = settings.lightLevel < 0.0 ? 0.0 : settings.lightLevel;
+					case (sf::Keyboard::F1):
+
+						settings.resolution.x = 1600;
+						settings.resolution.y = 900;
+						settings.fullscreen = false;
+						resetWindow();
+						break;
+
+					case (sf::Keyboard::F2):
+
+						settings.resolution.x = 800;
+						settings.resolution.y = 600;
+						settings.fullscreen = false;
+						resetWindow();
+						break;
+
+					case (sf::Keyboard::Dash):
+
+						settings.lightLevel -= 0.01;
+						settings.lightLevel = settings.lightLevel < 0.0 ? 0.0 : settings.lightLevel;
+						break;
+
+					case (sf::Keyboard::Equal):
+
+						settings.lightLevel += 0.01;
+						settings.lightLevel = settings.lightLevel > 1.0 ? 1.0 : settings.lightLevel;
+						break;
+
+					case (sf::Keyboard::K):
+						activeScene->unload();
+						break;
+
+					case (sf::Keyboard::L):
+						loadScene(new DemoScene());
+						break;
+
+					default:
+						input.processPressed(event.key.code);
 				}
-
-				if (event.key.code == sf::Keyboard::Equal)
-				{
-					settings.lightLevel += 0.01;
-					settings.lightLevel = settings.lightLevel > 1.0 ? 1.0 : settings.lightLevel;
-				}
-
-				if (event.key.code == sf::Keyboard::K)
-					activeScene->unload();
-
-				if (event.key.code == sf::Keyboard::L)
-					loadScene(new DemoScene());
+			}
+			else if (sf::Event::KeyReleased)
+			{
+				input.processReleased(event.key.code);
 			}
 		}
 
@@ -239,4 +253,6 @@ void Game::resetWindow()
 		camera->bounds.height = activeScene->sceneHeight;
 	}
 	camera->update();
+
+	window.setKeyRepeatEnabled(false);
 }

@@ -35,6 +35,16 @@ public:
 	void update();
 	void draw(sf::RenderTarget &target);
 	void onCollision(CollisionBox* own, CollisionBox* other);
+
+	//Input actions
+	void actionUpPressed();
+	void actionUpReleased();
+	void actionDownPressed();
+	void actionDownReleased();
+	void actionLeftPressed();
+	void actionLeftReleased();
+	void actionRightPressed();
+	void actionRightReleased();
 };
 
 #endif

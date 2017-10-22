@@ -4,6 +4,7 @@
 #include <SFML/Window.hpp>
 #include <SFML/Graphics.hpp>
 #include <string>
+#include "input.h"
 #include "settings.h"
 
 class Camera;
@@ -16,6 +17,7 @@ public:
 	//Game settings
 	std::string title {"Game"};
 	Settings settings;
+	Input input;
 
 	Scene* activeScene {nullptr};
 

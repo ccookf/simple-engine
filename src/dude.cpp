@@ -15,6 +15,16 @@ Dude::Dude()
 {
 	setLayer(SL_Player);
 
+	//Register actions to inputs
+	game->input.assignCallbackToAction(Action_Down_Pressed, std::bind(&Dude::actionDownPressed, this));
+	game->input.assignCallbackToAction(Action_Down_Released, std::bind(&Dude::actionDownReleased, this));
+	game->input.assignCallbackToAction(Action_Up_Pressed, std::bind(&Dude::actionUpPressed, this));
+	game->input.assignCallbackToAction(Action_Up_Released, std::bind(&Dude::actionUpReleased, this));
+	game->input.assignCallbackToAction(Action_Left_Pressed, std::bind(&Dude::actionLeftPressed, this));
+	game->input.assignCallbackToAction(Action_Left_Released, std::bind(&Dude::actionLeftReleased, this));
+	game->input.assignCallbackToAction(Action_Right_Pressed, std::bind(&Dude::actionRightPressed, this));
+	game->input.assignCallbackToAction(Action_Right_Released, std::bind(&Dude::actionRightReleased, this));
+
 	//Idle animation
 	idle.frames = {
 		AnimationFrame(1, sf::IntRect(0,0,64,64))
@@ -73,22 +83,19 @@ Dude::~Dude()
 
 void Dude::update()
 {
-	if (!active) return; 
+	if (!active) return;
 
-	velocity = sf::Vector2f(0, 0);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		velocity.y = -speed;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		velocity.y = speed;
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+	//This will cause the dude to face the direction of movement, 
+	//but won't change direction if keys are released or
+	//the player uses the opposite movement key to quick stop
+	if (velocity.x < 0)
 	{
-		velocity.x = -speed;
 		scale.x = abs(scale.x) * -1;
 	}
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+	else if (velocity.x > 0)
 	{
-		velocity.x = speed;
-		scale.x = abs(scale.x);
+		
+	scale.x = abs(scale.x);
 	}
 
 	physicsUpdate();
@@ -118,4 +125,48 @@ void Dude::draw(sf::RenderTarget &target)
 void Dude::onCollision(CollisionBox* own, CollisionBox* other)
 {
 	//Collisions yo
+}
+
+/********************************************************************
+ * ACTIONS
+ *******************************************************************/
+
+void Dude::actionUpPressed()
+{
+	velocity.y += -speed;
+}
+
+void Dude::actionUpReleased()
+{
+	velocity.y -= -speed;
+}
+
+void Dude::actionDownPressed()
+{
+	velocity.y += speed;
+}
+
+void Dude::actionDownReleased()
+{
+	velocity.y -= speed;
+}
+
+void Dude::actionLeftPressed()
+{
+	velocity.x -= speed;
+}
+
+void Dude::actionLeftReleased()
+{
+	velocity.x += speed;
+}
+
+void Dude::actionRightPressed()
+{
+	velocity.x += speed;
+}
+
+void Dude::actionRightReleased()
+{
+	velocity.x -= speed;
 }

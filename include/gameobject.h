@@ -42,10 +42,11 @@ public:
 	//Static Members
 	static std::vector<GameObject*> gameObjects;
 
+protected:
+	Game* game {nullptr};
+
 private:
 	int spriteLayer {0}; //SL_Default = 0
-
-	Game* game {nullptr};
 	GameObject* parent {nullptr};
 	std::forward_list<GameObject*> children; // @todo - this shouldn't be a flist
 };

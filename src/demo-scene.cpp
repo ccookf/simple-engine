@@ -8,6 +8,20 @@
 
 void DemoScene::load()
 {
+	//Since I don't really want to muck up the engine classes with demo specific code
+	//I'm assigning the input here (do not want configurable input here, as that is
+	//very game specific).
+	Game* game = Game::instance();
+	game->input.assignActionToInputPressed(sf::Keyboard::Up, Action_Up_Pressed);
+	game->input.assignActionToInputPressed(sf::Keyboard::Down, Action_Down_Pressed);
+	game->input.assignActionToInputPressed(sf::Keyboard::Left, Action_Left_Pressed);
+	game->input.assignActionToInputPressed(sf::Keyboard::Right, Action_Right_Pressed);
+
+	game->input.assignActionToInputReleased(sf::Keyboard::Up, Action_Up_Released);
+	game->input.assignActionToInputReleased(sf::Keyboard::Down, Action_Down_Released);
+	game->input.assignActionToInputReleased(sf::Keyboard::Left, Action_Left_Released);
+	game->input.assignActionToInputReleased(sf::Keyboard::Right, Action_Right_Released);
+	
 	//player & Light
 	sf::Color lightColors[] = 
 	{
@@ -66,7 +80,7 @@ void DemoScene::load()
 	sceneHeight = 20 * 64;
 
 	//Set the camera to person
-	Camera* camera = Game::instance()->camera;
+	Camera* camera = game->camera;
 	camera->target = dudes[2];
 	camera->bounds.width = sceneWidth;
 	camera->bounds.height = sceneHeight;
