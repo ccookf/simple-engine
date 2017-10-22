@@ -1,5 +1,6 @@
 *.exe
 *.dll
 *.png
+*.ogg
 *.o
 assets/amiko/

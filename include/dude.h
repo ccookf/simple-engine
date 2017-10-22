@@ -2,6 +2,7 @@
 #define DUDE_H
 
 #include "animation.h"
+#include "audio.h"
 #include "collision-box.h"
 #include "gameobject.h"
 #include "particle.h"
@@ -29,6 +30,8 @@ public:
 
 	CollisionBox hitbox;
 	CollisionBox sight;
+
+	Audio* audio {Audio::instance()};
 
 	Dude();
 	~Dude();

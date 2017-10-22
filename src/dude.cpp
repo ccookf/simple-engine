@@ -2,13 +2,14 @@
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
-#include <iostream>
 #include <cmath>
+#include <iostream>
 #include <vector>
 
 #include "collision-layers.h"
 #include "texture-manager.h"
 #include "sprite-layers.h"
+#include "util.h"
 #include "vector-math.h"
 
 Dude::Dude()
@@ -73,7 +74,7 @@ Dude::Dude()
 	sparkle.randomizeColor = sf::Color(55, 55, 55, 0);
 	sparkle.acceleration = sf::Vector2f(0, 100);
 	sparkle.randomized = true;
-	sparkle.randomizeVelocity = sf::Vector2f(300, 300);
+	sparkle.randomizeVelocity = sf::Vector2f(25, 300);
 	sparkle.circular = true;
 	sparkle.speed = 150.0f;
 	sparkle.randomizeSpeed = 50.0f;
@@ -191,4 +192,5 @@ void Dude::actionRightReleased()
 void Dude::actionSpecialAbility()
 {
 	sparkleEmitter.burst(100);
+	audio->playSfx("assets/snappy-boom.ogg", randomRange(0.9f, 1.1f));
 }

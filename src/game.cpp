@@ -5,6 +5,7 @@
 #include <time.h>
 #include <vector>
 
+#include "audio.h"
 #include "camera.h"
 #include "collision-box.h"
 #include "collision-layers.h"
@@ -76,6 +77,7 @@ void Game::run()
 	SpriteLayerManager* spriteLayerManager = SpriteLayerManager::instance();
 	CollisionBoxManager* collisionBoxManager = CollisionBoxManager::instance();
 	ParticleManager* particleManager = ParticleManager::instance();
+	Audio* audio = Audio::instance();
 	std::vector<GameObject*> &gameObjects = GameObject::gameObjects;
 	sf::Clock clock;
 	FpsCounter fps;
@@ -146,6 +148,9 @@ void Game::run()
 		deltaTime = clock.restart().asSeconds();
 		for (int i = 0; i < gameObjects.size(); i++)
 			gameObjects[i]->update();
+
+		//Cull unused sounds
+		audio->update();
 
 		//Check for collisions
 		for (auto layer : RegisteredCollisionLayers)

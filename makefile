@@ -1,5 +1,5 @@
 CC = g++
-LDFLAGS = -lsfml-system-d -lsfml-window-d -lsfml-graphics-d
+LDFLAGS = -lsfml-system-d -lsfml-window-d -lsfml-graphics-d -lsfml-audio-d
 CFLAGS = -std=c++11 -DDEBUG -g
 SFML = C:/SFML-2.4.2/include
 SOURCES = main.cpp $(wildcard src/*.cpp)

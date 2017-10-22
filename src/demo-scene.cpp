@@ -1,5 +1,6 @@
 #include "demo-scene.h"
 
+#include "audio.h"
 #include "camera.h"
 #include "dude.h"
 #include "game.h"
@@ -87,6 +88,11 @@ void DemoScene::load()
 	camera->bounds.width = sceneWidth;
 	camera->bounds.height = sceneHeight;
 
+	//Load some music
+	Audio::instance()->bgm.openFromFile("assets/database.ogg");
+	Audio::instance()->bgm.setVolume(50);
+	Audio::instance()->bgm.play();
+
 	isLoaded = true;
 }
 
@@ -103,6 +109,8 @@ void DemoScene::unload()
 	}
 
 	delete room;
+
+	Audio::instance()->bgm.stop();
 
 	isLoaded = false;
 }
