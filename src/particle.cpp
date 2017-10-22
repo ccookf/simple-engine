@@ -3,6 +3,7 @@
 #include <stdlib.h>
 #include "game.h"
 #include "texture-manager.h"
+#include "vector-math.h"
 
 //Get a random float centered on a range. Eg: range 50 -> [-25, 25]
 float randomVariance(float range)
@@ -23,6 +24,11 @@ void Particle::randomize()
 	velocity = initialVelocity;
 	velocity.x += randomVariance(randomizeVelocity.x);
 	velocity.y += randomVariance(randomizeVelocity.y);
+	if (circular)
+	{
+		velocity = (speed + randomVariance(randomizeSpeed)) * normalize(velocity);
+	}
+
 	color.r = randomVariance(randomizeColor.r);
 	color.g = randomVariance(randomizeColor.g);
 	color.b = randomVariance(randomizeColor.b);

@@ -9,6 +9,7 @@ class Particle
 public:
 	bool active {true};
 	bool randomized {false};
+	bool circular {false};
 	float lifespan {0};
 
 	//Use these for constant factors
@@ -20,6 +21,16 @@ public:
 	sf::Vector2f initialVelocity {0, 0};
 	sf::Vector2f randomizeVelocity {0, 0}; //Variance
 	sf::Color randomizeColor {0, 0, 0, 0}; //Variance of each channel
+
+	/**
+	 * For circular randomization.
+	 * 
+	 * This works by normalizing the randomized velocity from above, then 
+	 * scaling by speed, which gives a ring effect. The speed can also be
+	 * randomized, giving a fireworks like effect.
+	 **/
+	float speed {0};
+	float randomizeSpeed {0};
 
 	sf::Sprite sprite;
 	sf::Color color;

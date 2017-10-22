@@ -74,6 +74,9 @@ Dude::Dude()
 	sparkle.acceleration = sf::Vector2f(0, 100);
 	sparkle.randomized = true;
 	sparkle.randomizeVelocity = sf::Vector2f(300, 300);
+	sparkle.circular = true;
+	sparkle.speed = 150.0f;
+	sparkle.randomizeSpeed = 50.0f;
 	sparkleEmitter = ParticleEmitter(sparkle, 0, this);
 	sparkleEmitter.inheritVelocity = true;
 
