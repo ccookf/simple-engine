@@ -6,22 +6,9 @@
 		{
 			"taskName": "build main",
 			"type": "shell",
-			"command": "g++",
+			"command": "make",
 			"args": [
-				"-D",
-				"DEBUG",
-				"-g",
-				"-o",
-				"main",
-				"main.cpp",
-				"-I",
-				"C:/SFML-2.4.2/include",
-				"-I",
-				"./include/",
-				"./src/*.cpp",
-				"-lsfml-system-d",
-				"-lsfml-window-d",
-				"-lsfml-graphics-d"
+				"-j4"
 			],
 			"group": {
 				"kind": "build",
@@ -29,24 +16,9 @@
 			}
 		},
 		{
-			"taskName": "build release",
+			"taskName": "clean",
 			"type": "shell",
-			"command": "g++",
-			"args": [
-				"-O3",
-				"-o",
-				"game",
-				"main.cpp",
-				"-I",
-				"C:/SFML-2.4.2/include",
-				"-I",
-				"./include/",
-				"./src/*.cpp",
-				"-lsfml-system",
-				"-lsfml-window",
-				"-lsfml-graphics"
-			],
-			"problemMatcher": []
+			"command": "make clean"
 		}
 	]
 }
