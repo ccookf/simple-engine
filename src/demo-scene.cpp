@@ -22,6 +22,8 @@ void DemoScene::load()
 	game->input.assignActionToInputReleased(sf::Keyboard::Left, Action_Left_Released);
 	game->input.assignActionToInputReleased(sf::Keyboard::Right, Action_Right_Released);
 	
+	game->input.assignActionToInputPressed(sf::Keyboard::Space, Action_Special_Ability_1);
+
 	//player & Light
 	sf::Color lightColors[] = 
 	{

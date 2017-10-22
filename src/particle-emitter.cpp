@@ -27,6 +27,22 @@ void ParticleEmitter::stop()
 	active = false;
 }
 
+void ParticleEmitter::burst(int count)
+{
+	//Prepare the particle to be emitted
+	particle.position = parent->position + parentPositionOffset;
+
+	for (int i = 0; i < count; i++)
+	{
+		if (particle.randomized) particle.randomize();
+		if (inheritVelocity) particle.velocity += parent->velocity;
+
+		Particle* pt = particleManager->getFreeParticle();
+		if (pt == nullptr) return;
+		*pt = particle;
+	}
+}
+
 void ParticleEmitter::update()
 {
 	if (!active | parent == nullptr) return;
@@ -41,11 +57,12 @@ void ParticleEmitter::update()
 
 		//Prepare the particle to be emitted
 		particle.position = parent->position + parentPositionOffset;
-		particle.active = true;
-		if (particle.randomized) particle.randomize();
-
+	
 		for (int i = 0; i < emissionCount; i++)
 		{
+			if (particle.randomized) particle.randomize();
+			if (inheritVelocity) particle.velocity += parent->velocity;
+	
 			Particle* pt = particleManager->getFreeParticle();
 			if (pt == nullptr) return;
 			*pt = particle;

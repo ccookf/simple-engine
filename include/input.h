@@ -26,7 +26,8 @@ enum InputActions
 	Action_Left_Pressed,
 	Action_Left_Released,
 	Action_Right_Pressed,
-	Action_Right_Released
+	Action_Right_Released,
+	Action_Special_Ability_1
 };
 
 /**

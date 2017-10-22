@@ -7,14 +7,19 @@
 class Particle
 {
 public:
-	bool active {false};
+	bool active {true};
 	bool randomized {false};
 	float lifespan {0};
 
+	//Use these for constant factors
 	sf::Vector2f position {0, 0};
 	sf::Vector2f velocity {0, 0};
 	sf::Vector2f acceleration {0, 0};
+
+	//Use initial when randomizing
+	sf::Vector2f initialVelocity {0, 0};
 	sf::Vector2f randomizeVelocity {0, 0}; //Variance
+	sf::Color randomizeColor {0, 0, 0, 0}; //Variance of each channel
 
 	sf::Sprite sprite;
 	sf::Color color;

@@ -4,13 +4,29 @@
 #include "game.h"
 #include "texture-manager.h"
 
-void Particle::randomize()
+//Get a random float centered on a range. Eg: range 50 -> [-25, 25]
+float randomVariance(float range)
 {
 	float random = ((float) rand()) / (float) RAND_MAX;
-	velocity.x = randomizeVelocity.x * random - (randomizeVelocity.x / 2.0f);
+	return range * random - (range / 2.0f);
+}
 
-	random = ((float) rand()) / (float) RAND_MAX;
-	velocity.y = randomizeVelocity.x * random - (randomizeVelocity.x / 2.0f);	
+//Random int from [-range/2, range/2]
+int randomVariance(int range)
+{
+	if (range < 1) return 0;
+	return rand() % range + 1 - (range / 2);
+}
+
+void Particle::randomize()
+{
+	velocity = initialVelocity;
+	velocity.x += randomVariance(randomizeVelocity.x);
+	velocity.y += randomVariance(randomizeVelocity.y);
+	color.r = randomVariance(randomizeColor.r);
+	color.g = randomVariance(randomizeColor.g);
+	color.b = randomVariance(randomizeColor.b);
+	color.a = randomVariance(randomizeColor.a);
 }
 
 void Particle::update()

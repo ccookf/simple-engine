@@ -24,8 +24,8 @@ public:
 	Animation idle;
 	Animation walking;
 
-	Particle sparkle;
 	ParticleEmitter sparkleEmitter;
+	ParticleEmitter trailEmitter;
 
 	CollisionBox hitbox;
 	CollisionBox sight;
@@ -45,6 +45,7 @@ public:
 	void actionLeftReleased();
 	void actionRightPressed();
 	void actionRightReleased();
+	void actionSpecialAbility();
 };
 
 #endif

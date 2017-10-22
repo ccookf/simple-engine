@@ -16,6 +16,7 @@ public:
 	sf::Vector2f parentPositionOffset {0,0};
 
 	float rate {0};			//Interval between emissions
+	bool inheritVelocity {false};
 
 	//Constructors
 	ParticleEmitter();
@@ -24,6 +25,7 @@ public:
 	//Methods
 	virtual void start();
 	virtual void stop();
+	virtual void burst(int count); //A one time release of (count) particles
 	virtual void update();
 
 private:

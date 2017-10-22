@@ -25,6 +25,8 @@ Dude::Dude()
 	game->input.assignCallbackToAction(Action_Right_Pressed, std::bind(&Dude::actionRightPressed, this));
 	game->input.assignCallbackToAction(Action_Right_Released, std::bind(&Dude::actionRightReleased, this));
 
+	game->input.assignCallbackToAction(Action_Special_Ability_1, std::bind(&Dude::actionSpecialAbility, this));
+
 	//Idle animation
 	idle.frames = {
 		AnimationFrame(1, sf::IntRect(0,0,64,64))
@@ -63,15 +65,25 @@ Dude::Dude()
 	sight.color = sf::Color(255,255,0,128);
 
 	//Setup the particle emission
-	sparkle.lifespan = 3.0f;
+	Particle sparkle;
+	sparkle.lifespan = 1.0f;
 	sparkle.sprite.setTexture(*TextureManager::getTexture("assets/light-small.png"));
 	sparkle.sprite.setOrigin(16, 16);
-	sparkle.color = sf::Color(255,255,255,255);
+	sparkle.color = sf::Color(200,200,200,255);
+	sparkle.randomizeColor = sf::Color(55, 55, 55, 0);
 	sparkle.acceleration = sf::Vector2f(0, 100);
 	sparkle.randomized = true;
 	sparkle.randomizeVelocity = sf::Vector2f(300, 300);
-	sparkleEmitter = ParticleEmitter(sparkle, 0.01, this);
-	sparkleEmitter.start();
+	sparkleEmitter = ParticleEmitter(sparkle, 0.1, this);
+	sparkleEmitter.inheritVelocity = true;
+
+	Particle trail;
+	trail.lifespan = 2.0f;
+	trail.sprite.setTexture(*TextureManager::getTexture("assets/light-small.png"));
+	trail.sprite.setOrigin(16, 16);
+	trail.color = sf::Color(255,255,255,255);
+	trailEmitter = ParticleEmitter(trail, 0.025, this);
+	trailEmitter.start();
 }
 
 Dude::~Dude()
@@ -102,6 +114,7 @@ void Dude::update()
 	hitbox.update();
 	sight.update();
 	sparkleEmitter.update();
+	trailEmitter.update();
 
 	//Determine and update the active animation
 	if (mag(velocity) < 0.1) activeAnimation = &idle;
@@ -169,4 +182,10 @@ void Dude::actionRightPressed()
 void Dude::actionRightReleased()
 {
 	velocity.x -= speed;
+}
+
+//The dude makes a boom!
+void Dude::actionSpecialAbility()
+{
+	sparkleEmitter.burst(100);
 }
