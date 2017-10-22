@@ -22,19 +22,12 @@ public:
 	sf::Sound* getSfxChannel(std::string filename);
 	void releaseSfxChannel(sf::Sound* channel);
 	void loadSfx(std::string filename);
-	void playSfx
-	(
-		std::string filename,
-		float pitch = 1.0,
-		float volume = 50,
-		bool spatial = false,
-		sf::Vector3f position = sf::Listener::getPosition()
-	);
+	void playSfx(std::string filename, float pitch = 1.0, float volume = 50.0f);
 	void unloadSounds();
 	void update();
 
 private:
-	Audio() {};
+	Audio() { }
 	~Audio() { unloadSounds(); }
 	static Audio* _instance;
 

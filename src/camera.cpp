@@ -1,4 +1,6 @@
 #include "camera.h"
+
+#include <SFML/Audio.hpp>
 #include "gameobject.h"
 #include "game.h"
 

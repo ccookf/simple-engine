@@ -192,5 +192,5 @@ void Dude::actionRightReleased()
 void Dude::actionSpecialAbility()
 {
 	sparkleEmitter.burst(100);
-	audio->playSfx("assets/snappy-boom.ogg", randomRange(0.9f, 1.1f));
+	audio->playSfx("assets/snappy-boom.ogg",randomRange(0.9f, 1.1f), 50.0f);
 }

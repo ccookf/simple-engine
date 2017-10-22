@@ -52,14 +52,7 @@ void Audio::loadSfx(std::string filename)
 	}
 }
 
-void Audio::playSfx
-(
-	std::string filename,
-	float pitch,
-	float volume,
-	bool spatial,
-	sf::Vector3f position
-)
+void Audio::playSfx(std::string filename, float pitch, float volume)
 {
 	//Avoid loading at runtime if possible
 	if (loadedSfx.count(filename) == 0)
@@ -78,8 +71,6 @@ void Audio::playSfx
 	sound.setBuffer(*loadedSfx[filename]);
 	sound.setPitch(pitch);
 	sound.setVolume(volume);
-	sound.setRelativeToListener(spatial);
-	sound.setPosition(position);
 	sounds.push_front(sound);
 	sounds.front().play();
 }
